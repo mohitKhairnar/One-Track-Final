@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "590624369653",
+    "project_id": "onetrackbackend",
+    "storage_bucket": "onetrackbackend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590624369653:android:c89ec9019b1296ca2a4ebc",
+        "android_client_info": {
+          "package_name": "com.example.mini_project_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590624369653-20nc21j8eunretn60mh5q7de829n48dg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChIannAAcJ8th18xm20X5QYu_4zMeJLnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590624369653-20nc21j8eunretn60mh5q7de829n48dg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
