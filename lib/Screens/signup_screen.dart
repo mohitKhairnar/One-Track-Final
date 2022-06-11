@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project_ui/Screens/HomeScreen.dart';
+import 'package:mini_project_ui/Screens/VerifyEmail.dart';
 import 'Login.dart';
 
 class Signup extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SignupState extends State<Signup> {
           SnackBar(
             backgroundColor: Colors.green,
             content: Text(
-              "Registered Successfully. Please Login..",
+              "Registered Successfully. Please first verify your mail and then Login..",
               style: TextStyle(fontSize: 20.0),
             ),
           ),
@@ -46,7 +47,7 @@ class _SignupState extends State<Signup> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => Login(),
+            builder: (context) => verifyEmail(),
           ),
         );
       } on FirebaseAuthException catch (e) {

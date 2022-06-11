@@ -14,8 +14,7 @@ Future<void> main() async{
     WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
-       // home:  (FirebaseAuth.instance.currentUser != null) ? LoginScreen() : SignUpScreen(),
-        home: HomeScreenPage(),
+       home:  (FirebaseAuth.instance.currentUser != null) ? MyApp() : Login(),
   ));
 }
 
