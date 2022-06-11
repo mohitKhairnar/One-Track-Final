@@ -18,7 +18,6 @@ Future<void> main() async{
         home: HomeScreenPage(),
   ));
 }
-
 // void main() async{
 //   WidgetsFlutterBinding.ensureInitialized();
 //   await Firebase.initializeApp();

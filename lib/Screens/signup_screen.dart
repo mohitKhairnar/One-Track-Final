@@ -39,7 +39,7 @@ class _SignupState extends State<Signup> {
             backgroundColor: Colors.green,
             content: Text(
               "Registered Successfully. Please Login..",
-              style: TextStyle(fontSize: 20.0),
+              style: TextStyle(fontSize: 17.0),
             ),
           ),
         );
@@ -93,9 +93,10 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Register"),
+        backgroundColor: Colors.orangeAccent,
         leading: InkWell(
           onTap: (){
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>Login()));
+            Navigator.popUntil(context, (route) => route.isFirst);
           },
           child: Icon(Icons.arrow_back_ios),
         ),
@@ -111,9 +112,12 @@ class _SignupState extends State<Signup> {
                 child: TextFormField(
                   autofocus: false,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.mail),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                    ),
+                    prefixIcon: Icon(Icons.mail,color: Colors.orangeAccent,),
                     labelText: 'Email: ',
-                    labelStyle: TextStyle(fontSize: 20.0),
+                    labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)
                     ),
@@ -137,9 +141,12 @@ class _SignupState extends State<Signup> {
                   autofocus: false,
                   obscureText: true,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.key),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                    ),
+                    prefixIcon: Icon(Icons.key,color: Colors.orangeAccent,),
                     labelText: 'Password: ',
-                    labelStyle: TextStyle(fontSize: 20.0),
+                    labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)
                     ),
@@ -161,9 +168,12 @@ class _SignupState extends State<Signup> {
                   autofocus: false,
                   obscureText: true,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.vpn_key),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                    ),
+                    prefixIcon: Icon(Icons.vpn_key,color: Colors.orangeAccent),
                     labelText: 'Confirm Password: ',
-                    labelStyle: TextStyle(fontSize: 20.0),
+                    labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)
                     ),
@@ -184,6 +194,9 @@ class _SignupState extends State<Signup> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.orangeAccent),
+                      ),
                       onPressed: () {
                         // Validate returns true if the form is valid, otherwise false.
                         if (_formKey.currentState!.validate()) {
@@ -220,7 +233,7 @@ class _SignupState extends State<Signup> {
                             ),
                           )
                         },
-                        child: Text('Login',style: TextStyle(fontSize:21),))
+                        child: Text('Login',style: TextStyle(fontSize:21,color: Colors.orangeAccent),))
                   ],
                 ),
               )
