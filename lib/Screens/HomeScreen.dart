@@ -61,15 +61,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // const Text(
-                    //   'OneTrack',
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     fontSize: 35,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height:35),
                     RichText(
                       textAlign: TextAlign.center,
                       text: const TextSpan(
@@ -77,26 +69,17 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                           TextSpan(
                             text: 'Providing one stop solution\n to all your problems\n',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 21,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xff949494),
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Guest Login',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.teal,
+                              color: Colors.blueGrey,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 60),
                     GestureDetector(
                       onTap: () {
-                        print('Button Clicled');
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
@@ -117,7 +100,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                         decoration: BoxDecoration(
                           borderRadius:
                           const BorderRadius.all(Radius.circular(55)),
-                          color: Colors.teal,
+                          color: Color(0xff96dfdf),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.3),
@@ -129,25 +112,17 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                                padding: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: const Icon(
-                                  Icons.chevron_right,
-                                  size: 35,
-                                  color: Color(0xff96dfdf),
-                                )),
-                            const Expanded(
-                              child: Text(
-                                'Get Started',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                             Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Get Started',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff243664),
+                                  ),
                                 ),
                               ),
                             )

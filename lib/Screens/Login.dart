@@ -114,12 +114,15 @@ class _LoginState extends State<Login> {
                       child: TextFormField(
                         autofocus: false,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.mail),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                          ),
+                          prefixIcon: Icon(Icons.mail,color: Colors.orangeAccent,),
                           labelText: 'Email: ',
-                          labelStyle: TextStyle(fontSize: 20.0),
+                          labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
                           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                           border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(10),
                           ),
                           errorStyle:
                           TextStyle(color: Colors.redAccent, fontSize: 15),
@@ -141,9 +144,12 @@ class _LoginState extends State<Login> {
                         autofocus: false,
                         obscureText: true,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.key),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                          ),
+                          prefixIcon: Icon(Icons.key,color: Colors.orangeAccent,),
                           labelText: 'Password: ',
-                          labelStyle: TextStyle(fontSize: 20.0),
+                          labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
                           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)
@@ -210,13 +216,10 @@ class _LoginState extends State<Login> {
                           Text("Don't have an Account?",style: TextStyle(fontSize: 18),),
                           TextButton(
                             onPressed: () => {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, a, b) => Signup(),
-                                    transitionDuration: Duration(seconds: 0),
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Signup()),
+                                    // transitionDuration: Duration(seconds: 0),
                                   ),
-                                      (route) => false)
+                                      // (route) => false)
                             },
                             child: Text('Signup',style: TextStyle(fontSize: 21,color: Colors.orangeAccent),),
                           ),
