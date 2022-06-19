@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'yoga_details.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:mini_project_ui/Screens/fitness_pages/yoga_details.dart';
 import 'package:mini_project_ui/Screens/moneyPage.dart';
 import 'package:mini_project_ui/Screens/routine.dart';
 import '../fitnessPage.dart';
+
 
 class YogaPage extends StatefulWidget {
   const YogaPage({Key? key}) : super(key: key);
@@ -17,6 +19,9 @@ class _YogaPageState extends State<YogaPage> {
   int navigationIndex=0;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]
+    );
     return Scaffold(
       appBar: AppBar(backgroundColor:  Color(0xFF21BFBD),
         elevation: 0,

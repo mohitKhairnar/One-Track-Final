@@ -12,9 +12,22 @@ class HomeScreenPage extends StatefulWidget {
 class _HomeScreenPageState extends State<HomeScreenPage> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xff96dfdf),
-      body: Column(
+
+      body:
+      // Stack(
+      //   children: [
+      //     Image.asset("images/beg.jpg",height: 530, width: size.width, fit: BoxFit.cover,),
+      //     Positioned(
+      //       bottom: 0.0,
+      //       child: Container(height: 36.0,width: size.width,
+      //       decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0),topRight: Radius.circular(40.0)) ),),
+      //     )
+      //   ],
+      // ),
+
+      Column(
         children: [
           Expanded(
             child: Container(
@@ -25,11 +38,11 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
               decoration: const BoxDecoration(
                 color: Color(0xff96dfdf),
-                // image: DecorationImage(
-                //   image: AssetImage('images/intro-bg.png'),
-                //   fit: BoxFit.scaleDown,
-                //   alignment: Alignment.bottomCenter,
-                // ),
+                 image: DecorationImage(
+                   image: AssetImage('images/Welcome to OneTrack.jpg'),
+                   fit: BoxFit.scaleDown,
+                   alignment: Alignment.bottomCenter,
+                ),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,8 +56,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                   //     color: Colors.white,
                   //   ),
                   // ),
-                  Expanded(
-                      child: Image(image: AssetImage('images/WelcomeToHome.png'))),
+                  // Expanded(
+                  //     child: Image(image: AssetImage('images/Welcome.png'))),
                 ],
               ),
             ),
@@ -61,15 +74,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // const Text(
-                    //   'OneTrack',
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     fontSize: 35,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height:35),
                     RichText(
                       textAlign: TextAlign.center,
                       text: const TextSpan(
@@ -77,26 +82,17 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                           TextSpan(
                             text: 'Providing one stop solution\n to all your problems\n',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 21,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xff949494),
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Guest Login',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.teal,
+                              color: Colors.blueGrey,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 60),
                     GestureDetector(
                       onTap: () {
-                        print('Button Clicled');
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
@@ -117,7 +113,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                         decoration: BoxDecoration(
                           borderRadius:
                           const BorderRadius.all(Radius.circular(55)),
-                          color: Colors.teal,
+                          color: Color(0xff96dfdf),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.3),
@@ -129,25 +125,17 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                                padding: const EdgeInsets.all(5),
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: const Icon(
-                                  Icons.chevron_right,
-                                  size: 35,
-                                  color: Color(0xff96dfdf),
-                                )),
-                            const Expanded(
-                              child: Text(
-                                'Get Started',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                             Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  'Get Started',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff243664),
+                                  ),
                                 ),
                               ),
                             )

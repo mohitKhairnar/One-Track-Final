@@ -46,7 +46,7 @@ class BackHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: (FirebaseAuth.instance.currentUser != null) ? LoginScreen() : LoginScreen(),
+      home: (FirebaseAuth.instance.currentUser != null) ? MyApp() : Login(),
     );
   }
 }

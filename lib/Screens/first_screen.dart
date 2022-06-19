@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lottie/lottie.dart';
+import 'package:mini_project_ui/Screens/Login.dart';
 import 'package:mini_project_ui/Screens/fitnessPage.dart';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +11,12 @@ import 'package:mini_project_ui/Screens/routine.dart';
 import 'package:mini_project_ui/Screens/fitnessPage.dart';
 import 'package:mini_project_ui/Screens/upgradedr1.dart';
 
+import '../Diet_subScreens/breakfast.dart';
+import '../Diet_subScreens/dinner.dart';
+import '../Diet_subScreens/lunch.dart';
+import '../Diet_subScreens/snacks.dart';
+
+final user = FirebaseAuth.instance.currentUser!;
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -19,6 +28,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(backgroundColor:Colors.greenAccent,
+          elevation: 0,
+          toolbarHeight: 60,
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        endDrawer:Drawer2(),
         body: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -99,6 +118,7 @@ class _MyAppState extends State<MyApp> {
                 height: 15,
               ),
               Container(
+
                 height: 208,
                 // width: 100,
                 margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
@@ -193,4 +213,44 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+class Drawer2 extends StatefulWidget {
+  const Drawer2({Key? key}) : super(key: key);
 
+  @override
+  _Drawer2State createState() => _Drawer2State();
+}
+
+class _Drawer2State extends State<Drawer2> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Drawer(
+        backgroundColor: Colors.white,
+        child: ListView(
+          children: [
+            Container(
+              child: Text(" \n      Settings",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+
+            ),
+            Lottie.asset('assets/log-out.json'),
+
+            SizedBox(height: 25),
+            ListTile(
+              title: const Text('   Logout', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+              onTap: () {
+               FirebaseAuth.instance.signOut();
+               Navigator.push(
+                 context,
+                 MaterialPageRoute(
+                   builder: (context) => Login(),
+                 ),
+               );
+              },
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
