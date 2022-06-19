@@ -16,10 +16,8 @@ import '../Diet_subScreens/dinner.dart';
 import '../Diet_subScreens/lunch.dart';
 import '../Diet_subScreens/snacks.dart';
 
-<<<<<<< HEAD
-=======
+
 final user = FirebaseAuth.instance.currentUser!;
->>>>>>> 1b592a5489f80f104a36050efc49cc14391bdfba
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -218,68 +216,12 @@ class _MyAppState extends State<MyApp> {
 
 class Drawer2 extends StatefulWidget {
   const Drawer2({Key? key}) : super(key: key);
-<<<<<<< HEAD
+
 
   @override
   _Drawer2State createState() => _Drawer2State();
 }
 
-class _Drawer2State extends State<Drawer2> {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Drawer(
-        backgroundColor: Colors.white,
-        child: ListView(
-          children: [
-            Container(
-              child: Text(" \n Hello User !",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-            ),
-            Container(
-              child: Text(" What food will u have today? ",style: TextStyle(fontSize: 18),),
-            ),
-            SizedBox(height: 25),
-            // Lottie.asset('assets/eat17.json'),
-            ListTile(
-              title: const Text('Breakfast'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Breakfast()));
-              },
-            ),
-            ListTile(
-              title: const Text('Lunch'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Lunch()));
-              },
-            ),
-
-            ListTile(
-              title: const Text('Snacks'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Snacks()));
-              },
-            ),
-
-            ListTile(
-              title: const Text('Dinner'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Dinner()));
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-=======
->>>>>>> 1b592a5489f80f104a36050efc49cc14391bdfba
-
-  @override
-  _Drawer2State createState() => _Drawer2State();
-}
 
 class _Drawer2State extends State<Drawer2> {
   @override
