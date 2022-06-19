@@ -41,7 +41,7 @@ class _SignupState extends State<Signup> {
             backgroundColor: Colors.green,
             content: Text(
 
-              "Registered Successfully. Please first verify your mail and then Login..",
+              "Registered Successfully. Please verify your mail first and then Login..",
               style: TextStyle(fontSize: 20.0),
             ),
           ),
@@ -54,24 +54,22 @@ class _SignupState extends State<Signup> {
         );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print("Password Provided is too Weak");
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: Colors.redAccent,
+              backgroundColor: Colors.red,
               content: Text(
                 "Password Provided is too Weak",
-                style: TextStyle(fontSize: 18.0, color: Colors.black),
+                style: TextStyle(fontSize: 14.0, color: Colors.black),
               ),
             ),
           );
         } else if (e.code == 'email-already-in-use') {
-          print("Account Already exists");
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: Colors.orangeAccent,
+              backgroundColor: Colors.lightGreen,
               content: Text(
                 "Account Already exists",
-                style: TextStyle(fontSize: 18.0, color: Colors.black),
+                style: TextStyle(fontSize: 14.0, color: Colors.white),
               ),
             ),
           );
@@ -81,10 +79,10 @@ class _SignupState extends State<Signup> {
       print("Password and Confirm Password doesn't match");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Colors.orangeAccent,
+          backgroundColor: Colors.lightBlue,
           content: Text(
             "Password and Confirm Password doesn't match",
-            style: TextStyle(fontSize: 16.0, color: Colors.black),
+            style: TextStyle(fontSize: 14.0, color: Colors.black),
           ),
         ),
       );
@@ -96,8 +94,8 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: (Text("Register      ",)),
-        backgroundColor: Colors.orangeAccent,
+        title: Center(child: (Text("Register         ",))),
+        backgroundColor: Colors.black,
         leading: InkWell(
           onTap: (){
             Navigator.popUntil(context, (route) => route.isFirst);
@@ -105,30 +103,29 @@ class _SignupState extends State<Signup> {
           child: Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage('images/register.png'), fit:BoxFit.fitWidth)
-        ),
-        child: Form(
+      body:Form(
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
             child: ListView(
               children: [
-                SizedBox(height: 250
-                  ,),
+                Container(
+            height: MediaQuery.of(context).size.height-480,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage('images/reges.jpg'), fit:BoxFit.fitWidth),
+                ),
+                ),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10.0),
                   child: TextFormField(
                     autofocus: false,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                        borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
                       ),
-                      prefixIcon: Icon(Icons.mail,color: Colors.orangeAccent,),
+                      prefixIcon: Icon(Icons.mail,color: Colors.blueGrey,),
                       labelText: 'Email: ',
-                      labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
+                      labelStyle: TextStyle(fontSize: 16.0,color: Colors.blueGrey),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)
                       ),
@@ -153,11 +150,11 @@ class _SignupState extends State<Signup> {
                     obscureText: true,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                        borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
                       ),
-                      prefixIcon: Icon(Icons.key,color: Colors.orangeAccent,),
+                      prefixIcon: Icon(Icons.key,color: Colors.blueGrey,),
                       labelText: 'Password: ',
-                      labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
+                      labelStyle: TextStyle(fontSize: 16.0,color: Colors.blueGrey),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)
                       ),
@@ -180,11 +177,11 @@ class _SignupState extends State<Signup> {
                     obscureText: true,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orangeAccent, width: 2.0),
+                        borderSide: BorderSide(color: Colors.blueGrey, width: 2.0),
                       ),
-                      prefixIcon: Icon(Icons.vpn_key,color: Colors.orangeAccent),
+                      prefixIcon: Icon(Icons.vpn_key,color: Colors.blueGrey),
                       labelText: 'Confirm Password: ',
-                      labelStyle: TextStyle(fontSize: 20.0,color: Colors.orangeAccent),
+                      labelStyle: TextStyle(fontSize: 16.0,color: Colors.blueGrey),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)
                       ),
@@ -207,7 +204,7 @@ class _SignupState extends State<Signup> {
                     children: [
                       ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.orangeAccent),
+                          backgroundColor: MaterialStateProperty.all(Colors.black),
                         ),
                         onPressed: () {
                           // Validate returns true if the form is valid, otherwise false.
@@ -245,7 +242,7 @@ class _SignupState extends State<Signup> {
                               ),
                             )
                           },
-                          child: Text('Login',style: TextStyle(fontSize:21,color: Colors.orangeAccent),))
+                          child: Text('Login',style: TextStyle(fontSize:21,color: Colors.lightBlue),))
                     ],
                   ),
                 )
@@ -253,7 +250,6 @@ class _SignupState extends State<Signup> {
             ),
           ),
         ),
-      ),
     );
   }
 }
