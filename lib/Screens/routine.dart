@@ -309,7 +309,7 @@ class _RoutinePageState extends State<RoutinePage> {
                                 children: [
                                   Text(storedocs[i]['title'],
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),),
@@ -325,7 +325,7 @@ class _RoutinePageState extends State<RoutinePage> {
                                   ),
                                   Text(storedocs[i]['note'],
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 14,
                                         color: Colors.white
                                     ),),
                                   SizedBox(
@@ -352,7 +352,7 @@ class _RoutinePageState extends State<RoutinePage> {
                                         storedocs[i]['date'],
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 15,
+                                          fontSize: 12,
                                         ),
                                       ),
                                     ],
@@ -368,10 +368,11 @@ class _RoutinePageState extends State<RoutinePage> {
                                         width: 10,
                                       ),
                                       Text(storedocs[i]['startTime']+"  --  ",
-                                        style: TextStyle(color: Colors.white),),
+                                        style: TextStyle(color: Colors.white,fontSize: 12),),
                                       Text(storedocs[i]['endTime'],
                                         style: TextStyle(
-                                            color: Colors.white
+                                            color: Colors.white,
+                                          fontSize: 12,
                                         ),),
                                     ],
                                   )
