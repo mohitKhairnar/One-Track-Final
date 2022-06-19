@@ -26,6 +26,7 @@ dependencies:
   scoped_model: ^1.0.1
   get:
   intl:
+
   google_fonts:
   date_picker_timeline:
 
@@ -43,6 +44,7 @@ dependencies:
   email_auth: ^1.0.0
   cloud_firestore: "^2.4.0"
   icon_decoration: any
+  rxdart: ^0.27.1
   flutter_launcher_icons: ^0.9.3
 
 #  google_fonts: ^2.3.1
