@@ -31,7 +31,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
-            'Password Reset Email has been sent !',
+            'Password reset email has been sent !',
             style: TextStyle(fontSize: 18.0),
           ),
         ),
@@ -43,7 +43,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text(
-              'No user found for that email.',
+              'No user found .',
               style: TextStyle(fontSize: 18.0),
             ),
           ),
@@ -57,8 +57,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: (Text("Reset Password",)),
-        backgroundColor: Colors.black54,
+        title: Center(child: (Text("",))),
+        backgroundColor: Color(0xff393940),
         leading: InkWell(
           onTap: (){
             Navigator.popUntil(context, (route) => route.isFirst);
@@ -74,15 +74,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
         child: Column(
           children: [
-            // Lottie.asset('assets/forgot_password.json'),
+            Lottie.asset('assets/forgot_password.json'),
             Container(
-              margin: EdgeInsets.only(top: 20.0),
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  'Reset Link will be sent to your email id !!',
-                  style: TextStyle(fontSize: 20.0,color:Colors.white),
-                ),
+              margin: EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Reset link will be sent to your email id !',
+                style: TextStyle(fontSize: 20.0,color:Colors.black),
               ),
             ),
             Expanded(
@@ -92,21 +89,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                   child: ListView(
                     children: [
-                      SizedBox(height: 200,),
+                      // SizedBox(height: 200,),
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 10.0),
                         child: TextFormField(
                           autofocus: false,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white, width: 2.0),
+                              borderSide: BorderSide(color: Colors.black54, width: 2.0),
                             ),
-                            prefixIcon: Icon(Icons.mail,color: Colors.white,),
+                            prefixIcon: Icon(Icons.mail,color: Colors.black,),
                             labelText: 'Email: ',
-                            labelStyle: TextStyle(fontSize: 20.0,color: Colors.white),
+                            labelStyle: TextStyle(fontSize: 20.0,color: Colors.black),
                             border: OutlineInputBorder(
                               borderSide:BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 2,
                               ),
                                 borderRadius: BorderRadius.circular(10),
@@ -126,13 +123,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           },
                         ),
                       ),
-                      SizedBox(height: 50,),
+                      SizedBox(height: 10,),
                       Container(
-                        margin: EdgeInsets.only(left: 60.0),
-                        child: Row(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.black),
+                              ),
                               onPressed: () {
 
                                 if (_formKey.currentState!.validate()) {
@@ -144,22 +143,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               },
                               child: Text(
                                 'Send Email',
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () => {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, a, b) => Login(),
-                                      transitionDuration: Duration(seconds: 0),
-                                    ),
-                                        (route) => false)
-                              },
-                              child: Text(
-                                'Login',
-                                style: TextStyle(fontSize: 14.0),
+                                style: TextStyle(fontSize: 18.0,),
                               ),
                             ),
                           ],
@@ -167,11 +151,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       ),
                       SizedBox(height: 25,),
                       Container(
-                        child: Row(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Don't have an Account? ",
-                              style: TextStyle(fontSize: 15.0,color:Colors.white),),
+                              style: TextStyle(fontSize: 22.0,color:Colors.black),),
                             TextButton(
                                 onPressed: () => {
                                   Navigator.pushAndRemoveUntil(
@@ -184,7 +168,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                       ),
                                           (route) => false)
                                 },
-                                child: Text('Signup'))
+                                child: Text('Signup',style: TextStyle(color: Colors.white,fontSize: 23),))
                           ],
                         ),
                       )
