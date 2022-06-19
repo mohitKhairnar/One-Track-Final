@@ -16,6 +16,7 @@ import '../Diet_subScreens/dinner.dart';
 import '../Diet_subScreens/lunch.dart';
 import '../Diet_subScreens/snacks.dart';
 
+
 final user = FirebaseAuth.instance.currentUser!;
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -243,9 +244,11 @@ class _MyAppState extends State<MyApp> {
 class Drawer2 extends StatefulWidget {
   const Drawer2({Key? key}) : super(key: key);
 
+
   @override
   _Drawer2State createState() => _Drawer2State();
 }
+
 
 class _Drawer2State extends State<Drawer2> {
   @override

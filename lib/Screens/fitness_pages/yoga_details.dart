@@ -10,8 +10,9 @@ class YogaDetailsPage extends StatefulWidget {
   final heroTag;
   final yogaName;
   final info;
+  final t;
 
-  YogaDetailsPage({this.heroTag, this.yogaName,this.info});
+  YogaDetailsPage({this.heroTag, this.yogaName,this.info,this.t});
 
   @override
   _YogaDetailsPageState createState() => _YogaDetailsPageState();
@@ -100,90 +101,90 @@ class _YogaDetailsPageState extends State<YogaDetailsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         // Container(height: 25.0, color: Colors.grey, width: 1.0),
-                        Container(
-                          width: 125.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(17.0),
-                              color: Color(0xFF7A9BEE)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-
-                                    // inputCal-=widget.foodCal;
-
-                                    if(counter>0 )counter--;
-
-                                  });
-                                },
-                                child: Container(
-                                  height: 25.0,
-                                  width: 25.0,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(7.0),
-                                      color: Color(0xFF7A9BEE)),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: Colors.white,
-                                      size: 20.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text('$counter',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 15.0)),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    // inputCal+=widget.foodCal;
-                                    counter++;
-                                  });
-                                },
-                                child: Container(
-                                  height: 25.0,
-                                  width: 25.0,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(7.0),
-                                      color: Colors.white),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Color(0xFF7A9BEE),
-                                      size: 20.0,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   width: 125.0,
+                        //   height: 40.0,
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(17.0),
+                        //       color: Color(0xFF7A9BEE)),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //     children: <Widget>[
+                        //       InkWell(
+                        //         onTap: () {
+                        //           setState(() {
+                        //
+                        //             // inputCal-=widget.foodCal;
+                        //
+                        //             if(counter>0 )counter--;
+                        //
+                        //           });
+                        //         },
+                        //         child: Container(
+                        //           height: 25.0,
+                        //           width: 25.0,
+                        //           decoration: BoxDecoration(
+                        //               borderRadius: BorderRadius.circular(7.0),
+                        //               color: Color(0xFF7A9BEE)),
+                        //           child: Center(
+                        //             child: Icon(
+                        //               Icons.remove,
+                        //               color: Colors.white,
+                        //               size: 20.0,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       Text('$counter',
+                        //           style: TextStyle(
+                        //               color: Colors.white,
+                        //               fontFamily: 'Montserrat',
+                        //               fontSize: 15.0)),
+                        //       InkWell(
+                        //         onTap: () {
+                        //           setState(() {
+                        //             // inputCal+=widget.foodCal;
+                        //             counter++;
+                        //           });
+                        //         },
+                        //         child: Container(
+                        //           height: 25.0,
+                        //           width: 25.0,
+                        //           decoration: BoxDecoration(
+                        //               borderRadius: BorderRadius.circular(7.0),
+                        //               color: Colors.white),
+                        //           child: Center(
+                        //             child: Icon(
+                        //               Icons.add,
+                        //               color: Color(0xFF7A9BEE),
+                        //               size: 20.0,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
                         //Timer
                         Container(
-                          padding: const EdgeInsets.only(left: 100,top: 20,right:10 ,bottom: 10),
+                          padding: const EdgeInsets.only(left: 90,top: 20,right:10 ,bottom: 10),
                           child: Column(
                             children: [
                               Container(
                                 height: 50,
-                                width: 100,
+                                width: 200,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Color(0xFF7A9BEE),
                                 ),
                                 child: Center(
                                   child: TextButton(
-                                    child: Text("START",style:TextStyle(color: Colors.white, fontSize: 20),),
+                                    child: Text("START TIMER",style:TextStyle(color: Colors.black, fontSize: 20),),
                                     onPressed: (){
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => CountdownPage(),
+                                          builder: (context) => CountdownPage(time:widget.t,name: widget.yogaName,cn: 'Yoga',),
                                         ),
                                       );
                                     },

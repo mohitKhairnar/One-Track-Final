@@ -95,13 +95,50 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       Container(
                         height: MediaQuery.of(context).size.height - 250.0,
                         child: ListView(children: [
-                          _buildPositions(context,'pushup', 'PushUp','Fit & Fine' ),
-                          _buildPositions(context,'leg_raise', 'Leg Raise','Fit & Fine'),
-                          _buildPositions(context,'plank', 'Plank','Fit & Fine'),
-                          _buildPositions(context,'conc_curl', 'Concentration Curl','Fit & Fine'),
-                          _buildPositions(context,'Bent_overrow', 'Bent Overrow','Fit & Fine'),
-                          _buildPositions(context,'tricep_dip', 'Tricep Dip','Fit & Fine'),
-                          _buildPositions(context,'over_ext', 'Overhead Extension','Fit & Fine'),
+                          _buildPositions(context,'pushup', 'PushUp','Fit & Fine','\n1)Pushups are an exercise in which a person,keeping a prone position, with the hands palms down under the shoulders, the balls of the feet on the ground, and the back straight, pushes the body up and lets it down by an alternate straightening and bending of the arms\n'
+                              '\nPushups Variations:\n'
+                              '\n(i) Knee push-ups (great for beginners).\n'
+                              '\n(ii) Wall pushups\n'
+                              '\n(iii) Incline pushups; This is a slightly tougher push-up variant compared to knee and wall push-ups. Incline push-ups are performed with the hands positioned higher than the feet.\n'
+                              '\n(iv) Decline push-ups: require you to keep your legs on a higher plane and hands on the floor. You can use a bench, a box, or any piece of furniture to do this push-up.\n',180 ),
+                          _buildPositions(context,'leg_raise', 'Leg Raise','Fit & Fine','\nSteps:\n''\n1) Lie on your back, legs straight and together. \n'
+                              '\n2) Keep your legs straight and lift them all the way up to the ceiling until your butt comes off the floor. \n'
+                              '\n3) Slowly lower your legs back down till they’re just above the floor. Hold for a moment.\n'
+                              '\n4) Raise your legs back up. Repeat.\n'
+                              '\nPrecautions:\n'
+                              '\n1) Do not lift your shoulders up.\n'
+                              '\n2) Do not apply pressure on your chest.\n'
+                              '\n3) Do not arch your back as you bring the legs down.\n'
+                              '\nReps:\n'
+                              '\n1) For beginners – 10 to 12\n'
+                              '\n2) Intermediate – 25 to 50 reps\n'
+                              '\n3) You can do 2 to 3 sets of this exercise during the day.You can do 2 to 3 sets of this exercise during the day.\n'
+                              '\nBenefits:\n'
+                              '\n1) Helps to lose weight from the legs, and lower abdomen\n'
+                              '\n2) Tones, strengthens muscles in your abdomen and legs\n'
+                              '\n3) An effective exercise for lower abs\n'
+                              '\n4) Can strengthen the hamstrings, calf mucles, and glutes\n'
+                              '\n5) It is a great exercise that can be done even while lying down in bed\n'
+                              '\n6) Helps improve focus and attention\n',120 ),
+                          _buildPositions(context,'conc_curl', 'Concentration Curl','Fit & Fine','\nSteps:\n'
+                              '\n1)Sit on a bench that’s set at a height so your knees are bent at 90° with your feet flat on the floor.\n'
+                              '\n2)Pick up a dumbbell in your right hand and place the back of your upper right arm on the inner part of your right thigh.Your arm should be extended holding the weight off the floor.\n'
+                              '\n3)Slowly curl the weight up, only moving your forearms – the position of your upper arm on your thigh will help you keep it still during the exercise.'
+                              '\n4)At the top of the move, pause for a beat and squeeze your biceps, then slowly lower the weight back to the start.\n'
+                              '\n5)Do all your reps on one arm, then switch to the other.\n',120 ),
+                          _buildPositions(context,'plank', 'Plank','Fit & Fine','\nSteps:\n'
+                              '\n1) Lye down flat on the ground.\n'
+                              '\n2) Place your elbow and legs flat (like Push-ups).\n'
+                              '\n3) Push your body upward and keep your chin tight to your neck.\n'
+                              '\n4) Hold your position for 10 seconds.\n'
+                              '\n5) Bring your body downwards and continue this 3 times and then take a break.\n'
+                              '\n\n A strong core is much more than six-pack abs. \n'
+                              '\nWe use our core muscles unconsciously for several actions in a day ranging from bending and lifting weight, for balance and even to managing our breathing.\n'
+                              '\nA weakened core can cause serious injury if ignored.\n'
+                              '\nThe plank position helps target the core muscles and give them a good burn to build muscle strength.\n',120 ),
+                          _buildPositions(context,'Bent_overrow', 'Bent Overrow','Fit & Fine','hhh',120 ),
+                          _buildPositions(context,'tricep_dip', 'Tricep Dip','Fit & Fine','hhh',120 ),
+                          _buildPositions(context,'over_ext', 'Overhead Extension','Fit & Fine','hhh',120 ),
                           // _buildPositions(context,'bench_press', 'Bench Press'),
                           // _buildPositions(context,'Dal', 'Dal'),
                           // _buildPositions(context,'rice', 'Rice'),
@@ -292,13 +329,13 @@ class _WorkoutListState extends State<WorkoutList> {
         ));
   }
 }
-Widget _buildPositions(BuildContext context, String img, String sportName,String WorkoutSubtitle) {
+Widget _buildPositions(BuildContext context, String img, String workoutName,String WorkoutSubtitle,String workoutinfo,int time) {
   return Padding(
       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
       child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", sportName: sportName)
+                builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", workoutName: workoutName,workoutinfo:workoutinfo,t:time)
             ));
           },
           child: Row(
@@ -321,7 +358,7 @@ Widget _buildPositions(BuildContext context, String img, String sportName,String
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:[
                               Text(
-                                  sportName,
+                                  workoutName,
                                   style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontSize: 17.0,
@@ -345,7 +382,7 @@ Widget _buildPositions(BuildContext context, String img, String sportName,String
                   color: Colors.black,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", sportName: sportName)
+                        builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", workoutName: workoutName,workoutinfo:workoutinfo,t:time)
                     ));
                   }
               )

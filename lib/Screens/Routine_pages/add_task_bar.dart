@@ -162,7 +162,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                                   Row(
                                     children: [
                                       Expanded(child: MyInputField(
-                                        title: "State Time",
+                                        title: "Start Time",
                                         hint: _startTime,
                                         widget: IconButton(
                                           onPressed: (){
