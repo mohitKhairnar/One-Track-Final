@@ -56,119 +56,145 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Reset Password"),
+        elevation: 0,
+        title: (Text("Reset Password",)),
+        backgroundColor: Colors.black54,
+        leading: InkWell(
+          onTap: (){
+            Navigator.popUntil(context, (route) => route.isFirst);
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
       ),
       body:
-      Column(
-        children: [
-          // Lottie.asset('assets/forgot_password.json'),
-          Container(
-            margin: EdgeInsets.only(top: 20.0),
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Reset Link will be sent to your email id !',
-                style: TextStyle(fontSize: 20.0),
+      Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage('images/forget.png'), fit:BoxFit.fitWidth),
+        ),
+        child: Column(
+          children: [
+            // Lottie.asset('assets/forgot_password.json'),
+            Container(
+              margin: EdgeInsets.only(top: 20.0),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Reset Link will be sent to your email id !!',
+                  style: TextStyle(fontSize: 20.0,color:Colors.white),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                child: ListView(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.0),
-                      child: TextFormField(
-                        autofocus: false,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.mail),
-                          labelText: 'Email: ',
-                          labelStyle: TextStyle(fontSize: 20.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)
+            Expanded(
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  child: ListView(
+                    children: [
+                      SizedBox(height: 200,),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10.0),
+                        child: TextFormField(
+                          autofocus: false,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white, width: 2.0),
+                            ),
+                            prefixIcon: Icon(Icons.mail,color: Colors.white,),
+                            labelText: 'Email: ',
+                            labelStyle: TextStyle(fontSize: 20.0,color: Colors.white),
+                            border: OutlineInputBorder(
+                              borderSide:BorderSide(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                                borderRadius: BorderRadius.circular(10),
+                                // color: Colors.white,
+                            ),
+                            errorStyle:
+                            TextStyle(color: Colors.redAccent, fontSize: 15),
                           ),
-                          errorStyle:
-                          TextStyle(color: Colors.redAccent, fontSize: 15),
+                          controller: emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please Enter Email';
+                            } else if (!value.contains('@')) {
+                              return 'Please Enter Valid Email';
+                            }
+                            return null;
+                          },
                         ),
-                        controller: emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Email';
-                          } else if (!value.contains('@')) {
-                            return 'Please Enter Valid Email';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 60.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
+                      SizedBox(height: 50,),
+                      Container(
+                        margin: EdgeInsets.only(left: 60.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
 
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  email = emailController.text;
-                                });
-                                resetPassword();
-                              }
-                            },
-                            child: Text(
-                              'Send Email',
-                              style: TextStyle(fontSize: 18.0),
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    email = emailController.text;
+                                  });
+                                  resetPassword();
+                                }
+                              },
+                              child: Text(
+                                'Send Email',
+                                style: TextStyle(fontSize: 18.0),
+                              ),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () => {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, a, b) => Login(),
-                                    transitionDuration: Duration(seconds: 0),
-                                  ),
-                                      (route) => false)
-                            },
-                            child: Text(
-                              'Login',
-                              style: TextStyle(fontSize: 14.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Don't have an Account? "),
-                          TextButton(
+                            TextButton(
                               onPressed: () => {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     PageRouteBuilder(
-                                      pageBuilder: (context, a, b) =>
-                                          Signup(),
-                                      transitionDuration:
-                                      Duration(seconds: 0),
+                                      pageBuilder: (context, a, b) => Login(),
+                                      transitionDuration: Duration(seconds: 0),
                                     ),
                                         (route) => false)
                               },
-                              child: Text('Signup'))
-                        ],
+                              child: Text(
+                                'Login',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )
-                  ],
+                      SizedBox(height: 25,),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Don't have an Account? ",
+                              style: TextStyle(fontSize: 15.0,color:Colors.white),),
+                            TextButton(
+                                onPressed: () => {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, a, b) =>
+                                            Signup(),
+                                        transitionDuration:
+                                        Duration(seconds: 0),
+                                      ),
+                                          (route) => false)
+                                },
+                                child: Text('Signup'))
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

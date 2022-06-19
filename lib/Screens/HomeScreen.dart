@@ -12,9 +12,22 @@ class HomeScreenPage extends StatefulWidget {
 class _HomeScreenPageState extends State<HomeScreenPage> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xff96dfdf),
-      body: Column(
+
+      body:
+      // Stack(
+      //   children: [
+      //     Image.asset("images/beg.jpg",height: 530, width: size.width, fit: BoxFit.cover,),
+      //     Positioned(
+      //       bottom: 0.0,
+      //       child: Container(height: 36.0,width: size.width,
+      //       decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0),topRight: Radius.circular(40.0)) ),),
+      //     )
+      //   ],
+      // ),
+
+      Column(
         children: [
           Expanded(
             child: Container(
@@ -25,11 +38,11 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
               decoration: const BoxDecoration(
                 color: Color(0xff96dfdf),
-                // image: DecorationImage(
-                //   image: AssetImage('images/intro-bg.png'),
-                //   fit: BoxFit.scaleDown,
-                //   alignment: Alignment.bottomCenter,
-                // ),
+                 image: DecorationImage(
+                   image: AssetImage('images/Welcome to OneTrack.jpg'),
+                   fit: BoxFit.scaleDown,
+                   alignment: Alignment.bottomCenter,
+                ),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,8 +56,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                   //     color: Colors.white,
                   //   ),
                   // ),
-                  Expanded(
-                      child: Image(image: AssetImage('images/WelcomeToHome.png'))),
+                  // Expanded(
+                  //     child: Image(image: AssetImage('images/Welcome.png'))),
                 ],
               ),
             ),

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mini_project_ui">
    <application
-        android:label="mini_project_ui"
+        android:label="OneTrack"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
