@@ -96,14 +96,26 @@ class _RoutinePageState extends State<RoutinePage> {
         .of(context)
         .size;
     return StreamBuilder<QuerySnapshot>(stream: tasksStream,builder: (BuildContext context,AsyncSnapshot<QuerySnapshot>snapshot){
-      if(snapshot.hasError){
-        print("Something went wrong");
-      }
-      if(snapshot.connectionState==ConnectionState.waiting){
-        // print(snapshot.connectionState);
-
-        return CircularProgressIndicator();
-      }
+      // if(snapshot.hasError){
+      //   print("Something went wrong");
+      // }
+      // if(snapshot.connectionState==ConnectionState.waiting){
+      //   // print(snapshot.connectionState);
+      //
+      //   return Center(child: CircularProgressIndicator());
+      // }
+      TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0.0,end: 1.0),
+        duration: Duration(seconds: 4),
+        builder: (context,value, _)=>
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: CircularProgressIndicator(
+                value: value,
+                backgroundColor: Colors.white,
+                strokeWidth: 4,),
+            ), );
       final List storedocs = [];
       snapshot.data!.docs.map((DocumentSnapshot document){
         Map a = document.data() as Map<String, dynamic>;
@@ -396,9 +408,14 @@ class _RoutinePageState extends State<RoutinePage> {
                                   IconButton(
                                     icon: Icon(Icons.check_box,
                                       color: storedocs[i]['checkIconColor']==0?Colors.white:Colors.green,
-                                      size: 40,
-                                    ),
+                                      size: 30,
 
+                                    ),
+                                    splashColor: Colors.grey,
+                                    highlightColor: Colors.grey,
+                                    focusColor: Colors.grey,
+                                    hoverColor: Colors.grey,
+                                    autofocus: true,
                                     onPressed: (){
                                       if(storedocs[i]['checkIconColor']==0){
                                         dbcheckIconColor = 1;
