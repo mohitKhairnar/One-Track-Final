@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_project_ui/Screens/Login.dart';
@@ -21,14 +22,50 @@ import '../Diet_subScreens/snacks.dart';
 final user = FirebaseAuth.instance.currentUser!;
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
 class _MyAppState extends State<MyApp> {
+  double gained = 0.0;
+  String burnt = "";
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  void fetchData() async {
+    final User? user = auth.currentUser;
+    final uid = user?.uid;
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.year, now.month, now.day);
+    final querySnapshotFood = await FirebaseFirestore
+        .instance
+        .collection('food')
+        .doc(uid).get();
+    final querySnapshotCardio = await FirebaseFirestore
+        .instance
+        .collection('Cardio')
+        .doc(uid).get();
+    final querySnapshotWorkOut = await FirebaseFirestore
+        .instance
+        .collection('Workout')
+        .doc(uid).get();
+    print(querySnapshotCardio.data());
+    double burnt1 = (querySnapshotCardio.data()![(date.toString() + "cal")] == null)?0.0:querySnapshotCardio.data()![(date.toString() + "cal")];
+    burnt1 +=       (querySnapshotWorkOut.data()![(date.toString() + "cal")] == null)?0.0:querySnapshotWorkOut.data()![(date.toString() + "cal")] ;
+    setState(() {
+      gained = querySnapshotFood.data()![(date.toString() + "TCal")];
+      burnt = burnt1.toStringAsFixed(3);
+
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchData();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Color(0xFF21BFBD) ,
         appBar: AppBar(backgroundColor: Color(0xFF21BFBD),
@@ -108,7 +145,7 @@ class _MyAppState extends State<MyApp> {
                                 height: 10,
                               ),
                               Text(
-                                 '  Calories gained:                               ',style: TextStyle(
+                                 '  Calories gained:  $gained                             ',style: TextStyle(
                                 fontSize:23,
                                 color: Colors.blueGrey,
                               ),
@@ -117,7 +154,7 @@ class _MyAppState extends State<MyApp> {
                                 height: 10,
                               ),
                               Text(
-                                '   Calories burnt:                                   ',style: TextStyle(
+                                '   Calories burnt:  ${burnt}                                 ',style: TextStyle(
                                 fontSize: 23.0,
                                 color: Colors.blueGrey,
                               ),
