@@ -91,14 +91,73 @@ class _CardioPageState extends State<CardioPage> {
                       Container(
                         height: MediaQuery.of(context).size.height - 250.0,
                         child: ListView(children: [
-                          _buildCardio(context,'jogging2', 'Jogging','Breath','hhh'),
-                          _buildCardio(context,'high_knees', 'High Knees','Breath','hhh'),
-                          _buildCardio(context,'jump_rope', 'Jumping Slams','Breath','hhh'),
-                          _buildCardio(context,'pull_up', 'Pull Ups','Breath','hhh'),
-                          _buildCardio(context,'work_cycle', 'Exercise Cycle','Breath','hhh'),
-                          _buildCardio(context,'cycling2', 'Cycling','Breath','hhh'),
-                          _buildCardio(context,'crunches2', 'Crunches','Breath','hhh'),
-                          _buildCardio(context,'ball_situps', 'Weight Situps','Breath','hhh'),
+                          _buildCardio(context,'jogging2', 'Jogging','Breath','\nRegular running or jogging offers many health benefits. Running can:\n'
+                              '\n Help to build strong bones, as it is a weight bearing exercise\n'
+                              '\n Strengthen muscles\n'
+                              '\n Improve cardiovascular fitness\n'
+                              '\n Burn plenty of kilojoules\n'
+                              '\n Help maintain a healthy weight.\n'
+                              '\n An inactive lifestyle is associated with higher mortality, coronary artery disease, hypertension and stroke. It is also a primary cause of most chronic diseases, as the body rapidly adapts to insufficient physical activity which results in substantially reduced quality of life.  \n'
+                              '\n Regular physical activity such as running can significantly improve mental health, self-confidence, healthy ageing, and quality of life.\n',180),
+                          _buildCardio(context,'high_knees', 'High Knees','Breath','\nBefore you get started, make sure you’re wearing a comfortable and supportive pair of shoes. Ideally, try to do this exercise on a supportive gym floor or grassy area, especially if you have any knee or ankle issues. With that in mind, here’s how you do high knees.\n'
+                              '\n Stand tall with your feet about hip-to-shoulder-width apart and your arms at your sides.\n'
+                              '\n Looking straight ahead, open your chest, and engage your core muscles.\n'
+                              '\n Begin by bringing your right knee toward your chest, slightly above waist level. Simultaneously, move your left hand up in a pumping motion.\n'
+                              '\n Quickly lower your right leg and left hand.\n'
+                              '\n Repeat with your left leg and right hand.\n'
+                              '\n Alternate your right and left leg for the desired time \n'
+                              '\n Benefits : \n'
+                              '\n1) Increases heart rate and burns calories \n'
+                              '\n2) Targets your lower body\n'
+                              '\n3) Recruits your core muscles\n',120),
+                          _buildCardio(context,'jump_rope', 'Battle Rope','Breath','\n If you’re new to battle rope exercises, you’ll likely have to go to a gym to try them. Most gyms have battle rope stations.It’s best to start with a lighter and shorter rope, which is usually around 10 feet (3 meters) long and 1.5 inches (3.8 cm) thick.\n'
+                              '\nAs you get stronger, you can try longer lengths (up to 20–30 feet or 6–9 meters) and thicknesses (2 inches or 5 cm). However, this will depend on the ropes available at your gym.\n'
+                              '\n Strengthen muscles\n'
+                              '\n Improve cardiovascular fitness\n'
+                              '\n Burn plenty of kilojoules\n'
+                              '\n Help maintain a healthy weight.\n'
+                              '\n An inactive lifestyle is associated with higher mortality, coronary artery disease, hypertension and stroke. It is also a primary cause of most chronic diseases, as the body rapidly adapts to insufficient physical activity which results in substantially reduced quality of life.  \n'
+                              '\n Regular physical activity such as running can significantly improve mental health, self-confidence, healthy ageing, and quality of life.\n',120),
+                          _buildCardio(context,'pull_up', 'Pull Ups','Breath','\nRegular running or jogging offers many health benefits. Running can:\n'
+                              '\n Help to build strong bones, as it is a weight bearing exercise\n'
+                              '\n Strengthen muscles\n'
+                              '\n Improve cardiovascular fitness\n'
+                              '\n Burn plenty of kilojoules\n'
+                              '\n Help maintain a healthy weight.\n'
+                              '\n An inactive lifestyle is associated with higher mortality, coronary artery disease, hypertension and stroke. It is also a primary cause of most chronic diseases, as the body rapidly adapts to insufficient physical activity which results in substantially reduced quality of life.  \n'
+                              '\n Regular physical activity such as running can significantly improve mental health, self-confidence, healthy ageing, and quality of life.\n',120),
+                          _buildCardio(context,'work_cycle', 'Exercise Cycle','Breath','\nRegular running or jogging offers many health benefits. Running can:\n'
+                              '\n Help to build strong bones, as it is a weight bearing exercise\n'
+                              '\n Strengthen muscles\n'
+                              '\n Improve cardiovascular fitness\n'
+                              '\n Burn plenty of kilojoules\n'
+                              '\n Help maintain a healthy weight.\n'
+                              '\n An inactive lifestyle is associated with higher mortality, coronary artery disease, hypertension and stroke. It is also a primary cause of most chronic diseases, as the body rapidly adapts to insufficient physical activity which results in substantially reduced quality of life.  \n'
+                              '\n Regular physical activity such as running can significantly improve mental health, self-confidence, healthy ageing, and quality of life.\n',120),
+                          _buildCardio(context,'cycling2', 'Cycling','Breath','\nRegular running or jogging offers many health benefits. Running can:\n'
+                              '\n Help to build strong bones, as it is a weight bearing exercise\n'
+                              '\n Strengthen muscles\n'
+                              '\n Improve cardiovascular fitness\n'
+                              '\n Burn plenty of kilojoules\n'
+                              '\n Help maintain a healthy weight.\n'
+                              '\n An inactive lifestyle is associated with higher mortality, coronary artery disease, hypertension and stroke. It is also a primary cause of most chronic diseases, as the body rapidly adapts to insufficient physical activity which results in substantially reduced quality of life.  \n'
+                              '\n Regular physical activity such as running can significantly improve mental health, self-confidence, healthy ageing, and quality of life.\n',120),
+                          _buildCardio(context,'crunches2', 'Crunches','Breath','\nRegular running or jogging offers many health benefits. Running can:\n'
+                              '\n Help to build strong bones, as it is a weight bearing exercise\n'
+                              '\n Strengthen muscles\n'
+                              '\n Improve cardiovascular fitness\n'
+                              '\n Burn plenty of kilojoules\n'
+                              '\n Help maintain a healthy weight.\n'
+                              '\n An inactive lifestyle is associated with higher mortality, coronary artery disease, hypertension and stroke. It is also a primary cause of most chronic diseases, as the body rapidly adapts to insufficient physical activity which results in substantially reduced quality of life.  \n'
+                              '\n Regular physical activity such as running can significantly improve mental health, self-confidence, healthy ageing, and quality of life.\n',120),
+                          _buildCardio(context,'ball_situps', 'Weight Situps','Breath','\nRegular running or jogging offers many health benefits. Running can:\n'
+                              '\n Help to build strong bones, as it is a weight bearing exercise\n'
+                              '\n Strengthen muscles\n'
+                              '\n Improve cardiovascular fitness\n'
+                              '\n Burn plenty of kilojoules\n'
+                              '\n Help maintain a healthy weight.\n'
+                              '\n An inactive lifestyle is associated with higher mortality, coronary artery disease, hypertension and stroke. It is also a primary cause of most chronic diseases, as the body rapidly adapts to insufficient physical activity which results in substantially reduced quality of life.  \n'
+                              '\n Regular physical activity such as running can significantly improve mental health, self-confidence, healthy ageing, and quality of life.\n',120),
                           // _buildPositions(context,'Dal', 'Dal'),
                           // _buildPositions(context,'rice', 'Rice'),
                           // _buildPositions(context,'5', 'Sprouts'),
@@ -288,14 +347,14 @@ class _CardioListState extends State<CardioList> {
         ));
   }
 }
-Widget _buildCardio(BuildContext context, String img, String cardioName,String CardioSubtitle, String info) {
+Widget _buildCardio(BuildContext context, String img, String cardioName,String CardioSubtitle, String info,int time) {
 
   return Padding(
       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
       child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CardioDetailsPage(heroTag: "images/$img.jpg", cardioName: cardioName,cardioinfo: info,)
+                builder: (context) => CardioDetailsPage(heroTag: "images/$img.jpg", cardioName: cardioName,cardioinfo: info,t: time)
             ));
           },
           child: Row(
@@ -342,7 +401,7 @@ Widget _buildCardio(BuildContext context, String img, String cardioName,String C
                   color: Colors.black,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CardioDetailsPage(heroTag: "images/$img.jpg", cardioName: cardioName,cardioinfo: info)
+                        builder: (context) => CardioDetailsPage(heroTag: "images/$img.jpg", cardioName: cardioName,cardioinfo: info,t: time)
                     ));
                   }
               )
