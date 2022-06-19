@@ -28,9 +28,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(backgroundColor:Colors.greenAccent,
+        backgroundColor: Color(0xFF21BFBD) ,
+        appBar: AppBar(backgroundColor: Color(0xFF21BFBD),
           elevation: 0,
-          toolbarHeight: 60,
+          toolbarHeight: 30,
           leading: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -38,177 +39,203 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         endDrawer:Drawer2(),
-        body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Colors.greenAccent,
-                  Colors.indigo,
+        body:  ListView(
+          physics: BouncingScrollPhysics(),
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, left: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    // width: 125.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    ),
+                  ),
                 ],
-              )
-          ),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: <Widget>[
-              SizedBox(
-                height: 15,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 40.0),
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Text('One',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 55.0)),
-                      SizedBox(width: 5.0),
-                      Text('Track',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Colors.white,
-                              fontSize: 30.0))
-                    ],
-                  ),
-                ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 40.0),
+              child: Row(
+                children: <Widget>[
+                  Text('One',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 55.0)),
+                  SizedBox(width: 5.0),
+                  Text('Track',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Colors.white,
+                          fontSize: 30.0))
+                ],
               ),
-              SizedBox(height: 25,),
-              // Container(
-              //   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              //   height: 70,
-              //   width: 100,
-              //   decoration: BoxDecoration(
-              //       border: Border.all(
-              //         color: Colors.black87,
-              //       ),
-              //       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              // ),
-              Container(
-                height: MediaQuery.of(context).size.height*0.25,
-                // width: 100,
-                margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  image: DecorationImage(
-                    image: AssetImage('images/2.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FitnessPage(),
+            ),
+            //SizedBox(height: 20.0),
+            Container(
+              height: MediaQuery.of(context).size.height+104 ,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(70.0)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 5),
+                              Text(
+                                '  Total calories intake:             ',style: TextStyle(
+                                fontSize:28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                 '  Calories gained:                               ',style: TextStyle(
+                                fontSize:23,
+                                color: Colors.blueGrey,
+                              ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '   Calories burnt:                                   ',style: TextStyle(
+                                fontSize: 23.0,
+                                color: Colors.blueGrey,
+                              ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    );
-                  }, // Handle your callback.
-                  splashColor: Colors.black.withOpacity(0.3),
-                  child: Ink(
-                    height: 100,
-                    width: 100,
+                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      height: 155,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black87,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-
-                height: 208,
-                // width: 100,
-                margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  image: DecorationImage(
-                    image: AssetImage('images/1.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UpDiet(),
+                  SizedBox(height: 15,),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.25,
+                      // width: 100,
+                      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        image: DecorationImage(
+                          image: AssetImage('images/dietpng.png'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    );
-                  }, // Handle your callback.
-                  splashColor: Colors.black.withOpacity(0.3),
-                  child: Ink(
-                    height: 100,
-                    width: 100,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height*0.25,
-                // width: 100,
-                margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  image: DecorationImage(
-                    image: AssetImage('images/4.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MoneyPage(),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UpDiet(),
+                            ),
+                          );
+                        }, // Handle your callback.
+                        splashColor: Colors.black.withOpacity(0.3),
+                        child: Ink(
+                          height: 100,
+                          width: 100,
+                        ),
                       ),
-                    );
-                  }, // Handle your callback.
-                  splashColor: Colors.black.withOpacity(0.3),
-                  child: Ink(
-                    height: 100,
-                    width: 100,
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height*0.25,
-                // width: 100,
-                margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  image: DecorationImage(
-                    image: AssetImage('images/3.png'),
-                    fit: BoxFit.cover,
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RoutinePage(),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.25,
+                      // width: 100,
+                      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        image: DecorationImage(
+                          image: AssetImage('images/workoutpng.png'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    );
-                  }, // Handle your callback.
-                  splashColor: Colors.black.withOpacity(0.3),
-                  child: Ink(
-                    height: 100,
-                    width: 100,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FitnessPage(),
+                            ),
+                          );
+                        }, // Handle your callback.
+                        splashColor: Colors.black.withOpacity(0.3),
+                        child: Ink(
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.25,
+                      // width: 100,
+                      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        image: DecorationImage(
+                          image: AssetImage('images/routinepng.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RoutinePage(),
+                            ),
+                          );
+                        }, // Handle your callback.
+                        splashColor: Colors.black.withOpacity(0.3),
+                        child: Ink(
+                          height: 100,
+                          width: 100,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+            ),
             ],
           ),
         ),
-      ),
     );
   }
 }
