@@ -44,12 +44,9 @@ dependencies:
   email_auth: ^1.0.0
   cloud_firestore: "^2.4.0"
   icon_decoration: any
-<<<<<<< HEAD
-  flutter_local_notifications: ^8.2.0
+#  flutter_local_notifications: ^8.2.0
   rxdart: ^0.27.1
-=======
   flutter_launcher_icons: ^0.9.3
->>>>>>> 08a6002a203e9dbdd6805be91c9f26b817d2ec23
 
 #  google_fonts: ^2.3.1
 

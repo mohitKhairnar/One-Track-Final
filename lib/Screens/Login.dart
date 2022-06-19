@@ -17,12 +17,34 @@ class _LoginState extends State<Login> {
 
   var email = "";
   var password = "";
-
+  bool isLoading = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   userLogin() async {
     try {
+      showDialog(context: context, builder: (context){
+        return Center(
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0,end: 1.0),
+                    duration: Duration(seconds: 4),
+                    builder: (context,value, _)=>
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: CircularProgressIndicator(
+                          value: value,
+                          backgroundColor: Colors.white,
+                          strokeWidth: 4,),
+                ), )
+              ],
+            ));
+      });
+
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacement(
@@ -186,6 +208,7 @@ class _LoginState extends State<Login> {
                                       Colors.orangeAccent),
                                 ),
                                 onPressed: () {
+
                                   // Validate returns true if the form is valid, otherwise false.
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
