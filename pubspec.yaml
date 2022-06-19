@@ -26,6 +26,7 @@ dependencies:
   scoped_model: ^1.0.1
   get:
   intl:
+
   google_fonts:
   date_picker_timeline:
 
@@ -43,7 +44,16 @@ dependencies:
   email_auth: ^1.0.0
   cloud_firestore: "^2.4.0"
   icon_decoration: any
+<<<<<<< HEAD
   connectivity_plus: ^2.3.4
+=======
+<<<<<<< HEAD
+  flutter_local_notifications: ^8.2.0
+  rxdart: ^0.27.1
+=======
+  flutter_launcher_icons: ^0.9.3
+>>>>>>> 08a6002a203e9dbdd6805be91c9f26b817d2ec23
+>>>>>>> 1b592a5489f80f104a36050efc49cc14391bdfba
 
 #  google_fonts: ^2.3.1
 
@@ -51,6 +61,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android:  true
+  ios: true
+  image_path: "images/_AppLogo.jpg"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

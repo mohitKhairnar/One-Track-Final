@@ -16,8 +16,10 @@ import 'Routine_pages/add_task_bar.dart';
 import 'Routine_pages/list_item.dart';
 import 'Routine_pages/list_item_widget.dart';
 import 'Routine_pages/list_items.dart';
+import 'Routine_pages/notification_api.dart';
 import 'fitnessPage.dart';
 import 'moneyPage.dart';
+import 'package:intl/intl.dart';
 
 TextStyle get subHeadingStyle{
   return GoogleFonts.lato(
@@ -47,6 +49,7 @@ class RoutinePage extends StatefulWidget {
 }
 
 class _RoutinePageState extends State<RoutinePage> {
+
   final Stream<QuerySnapshot> tasksStream  = FirebaseFirestore.instance.collection('tasks').snapshots();
   final List<ListItem> items = List.from(listItems);
   final listKey = GlobalKey<AnimatedListState>();
@@ -60,18 +63,34 @@ class _RoutinePageState extends State<RoutinePage> {
   String undoNote = "";
   String undoStartTime = "";
   String undoEndTime = "";
+  String dbdate = "";
+  int dbcheckIconColor = 0;
+  String ffilter = "";
+  String repeat = "";
+  bool enableInfo = true;
   Color _iconColor = Colors.white;
   @override
   void initState() {
     super.initState();
+    NotificationApi.init();
+    listenNotifications();
   }
+  void listenNotifications()=>
+    NotificationApi.onNotifications.stream.listen(onClickedNotification);
+  void onClickedNotification(String? payload)=>
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context)=> AddTaskPage(),
+    ));
   CollectionReference tasks  = FirebaseFirestore.instance.collection('tasks');
   Future<void>deleteTask(id){
-
-    return tasks.doc(id).delete().then((value)=>print('User deleted')).catchError((error)=>print('Faield to delete user: $error'));;
+      enableInfo = true;
+    return tasks.doc(id).delete().then((value)=>print('User deleted')).catchError((error)=>print('Faield to delete user: $error'));
   }
   Future<void>undoTask(id)async {
-    return tasks.add({'title':undoTitle,'note':undoNote,'startTime':undoStartTime,'endTime':undoEndTime,'selectedColor':undoColor})
+    setState(() {
+      enableInfo = false;
+    });
+    return tasks.add({'title':undoTitle,'note':undoNote,'startTime':undoStartTime,'endTime':undoEndTime,'selectedColor':undoColor,'checkIconColor':dbcheckIconColor,'date':dbdate,'enable':enableInfo,'repeat':repeat})
         .then((value) => print("task added")).catchError((error)=>print('Failed to add task'));
   }
   Future<void>changeColor(int colorValue)async {
@@ -179,6 +198,14 @@ class _RoutinePageState extends State<RoutinePage> {
                                     Navigator.push(context,
                                       MaterialPageRoute(builder: (
                                           context) => const AddTaskPage()),);
+                                   },
+                                  onLongPress: () =>{
+                                    NotificationApi.showNotification(
+                                      title: "Mohit",
+                                      body: "Adwait",
+                                      payload: "Ayush"
+                                    ),
+
                                   },
                                 ),
                               ),
@@ -188,8 +215,8 @@ class _RoutinePageState extends State<RoutinePage> {
 
                       ),
                       Positioned(
-                        top: 111,
-                        bottom: 30,
+                        top: 110,
+                        bottom:25,
                         left: 0,
                         right: 0,
 
@@ -243,7 +270,11 @@ class _RoutinePageState extends State<RoutinePage> {
                                 ),
                               ),
                               onDateChange: (date) {
-                                _selectedDate = date;
+                                setState(() {
+                                  _selectedDate = date;
+                                  ffilter = DateFormat('yyyy-MM-dd').format(_selectedDate).toString();
+                                  print(ffilter);
+                                });
                               },
                             ),
                           ),
@@ -251,196 +282,231 @@ class _RoutinePageState extends State<RoutinePage> {
                         ),
                       ),
                     ],
-
                   ),
 
                 ),
+                SizedBox(
+                  height: 0,
+                ),
                 for(var i = 0;i<storedocs.length;i++)...[
-                  Container(
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      height: 170.0,
-                      width: 350.0,
-                      decoration: BoxDecoration(
-                          color: storedocs[i]['selectedColor']==0?Colors.red:storedocs[i]['selectedColor']==1?Colors.blue:Colors.orange,
-                          borderRadius:BorderRadius.only(
-                            bottomLeft: Radius.circular(20.0),
-                            bottomRight: Radius.circular(20.0),
-                            topLeft: Radius.circular(20.0),
-                            topRight: Radius.circular(20.0),
+                  if(DateFormat('yyyy-MM-dd').format(_selectedDate).toString()==storedocs[i]['date'] || storedocs[i]['repeat']=='Daily')
+                    Container(
+                      child: Container(
+                        margin: EdgeInsets.all(4),
+                        padding: EdgeInsets.all(10),
+                        height: 170.0,
+                        width: 350.0,
+                        decoration: BoxDecoration(
+                            color: storedocs[i]['selectedColor']==0?Colors.red:storedocs[i]['selectedColor']==1?Colors.blue:Colors.orange,
+                            borderRadius:BorderRadius.only(
+                              bottomLeft: Radius.circular(20.0),
+                              bottomRight: Radius.circular(20.0),
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
 
-                          ) ,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey ,
-                                blurRadius: 2.0,
-                                offset: Offset(4.0,4.0)
-                            )
-                          ]
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(storedocs[i]['title'],
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),),
-
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(storedocs[i]['note'],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white
-                                  ),),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  height: 2,
-                                  width: 200,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.watch_later_outlined,
+                            ) ,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey ,
+                                  blurRadius: 2.0,
+                                  offset: Offset(4.0,4.0)
+                              )
+                            ]
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(storedocs[i]['title'],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(storedocs[i]['startTime']+"  --  ",
-                                      style: TextStyle(color: Colors.white),),
-                                    Text(storedocs[i]['endTime'],
-                                      style: TextStyle(
-                                          color: Colors.white
-                                      ),),
-                                  ],
-                                )
-
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 120,
-                            width: 2,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-
-                                IconButton(
-                                  icon: Icon(Icons.check_box,
-                                    color: storedocs[i]['checkIconColor']==0?Colors.white:Colors.green,
-                                    size: 40,
+                                    ),),
+                                  // Text(
+                                  //   storedocs[i]['date'],
+                                  //   style: TextStyle(
+                                  //     color: Colors.white,
+                                  //     fontSize: 20,
+                                  //   ),
+                                  // ),
+                                  SizedBox(
+                                    height: 10,
                                   ),
-
-                                  onPressed: (){
-                                    if(storedocs[i]['checkIconColor']==0){
-                                      setState(() {
-                                        tasks.doc(storedocs[i]['id'])
-                                            .update({
-                                          "checkIconColor":"1"
-                                        }).then((result){
-                                          print("new USer true");
-                                        }).catchError((onError){
-                                          print("onError");
-                                        });
-                                      });
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                          content: Text("Congrats you have completed your task...")));
-                                    }
-                                    else{
-                                      setState(() {
-                                        tasks.doc(storedocs[i]['id'])
-                                            .update({
-                                          "checkIconColor":"0"
-                                        }).then((result){
-                                          print("new USer true");
-                                        }).catchError((onError){
-                                          print("onError");
-                                        });
-                                      });
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                          content: Text("Congrats you have completed your task...")));
-                                    }
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 14,
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.delete,
+                                  Text(storedocs[i]['note'],
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white
+                                    ),),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    height: 2,
+                                    width: 200,
                                     color: Colors.white,
-                                    size: 30,
                                   ),
-                                  onPressed: ()=>{
-                                    undoTitle = storedocs[i]['title'],
-                                    undoNote = storedocs[i]['note'],
-                                    undoStartTime = storedocs[i]['startTime'],
-                                    undoEndTime = storedocs[i]['endTime'],
-                                    undoColor = storedocs[i]['selectedColor'],
-                                    deleteTask(storedocs[i]['id']),
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                        content: Container(
-                                          height: 100,
-                                          child: Column(
-                                            children: [
-                                              Text("You have successfully deleted the task...",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20
-                                                ),),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Want to undo the task",style: TextStyle(
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.date_range,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        storedocs[i]['date'],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.watch_later_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(storedocs[i]['startTime']+"  --  ",
+                                        style: TextStyle(color: Colors.white),),
+                                      Text(storedocs[i]['endTime'],
+                                        style: TextStyle(
+                                            color: Colors.white
+                                        ),),
+                                    ],
+                                  )
+
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 120,
+                              width: 2,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              margin: EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+
+                                  IconButton(
+                                    icon: Icon(Icons.check_box,
+                                      color: storedocs[i]['checkIconColor']==0?Colors.white:Colors.green,
+                                      size: 40,
+                                    ),
+
+                                    onPressed: (){
+                                      if(storedocs[i]['checkIconColor']==0){
+                                        dbcheckIconColor = 1;
+                                        setState(() {
+                                          tasks.doc(storedocs[i]['id'])
+                                              .update({
+                                            "checkIconColor":1,
+                                          }).then((result){
+                                            print("new USer true");
+                                          }).catchError((onError){
+                                            print("onError");
+                                          });
+                                        });
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                            duration: const Duration(seconds: 1),
+                                            content: Text("Congrats you have completed your task...")));
+                                      }
+                                      if(storedocs[i]['checkIconColor']==1){
+                                        dbcheckIconColor = 0;
+                                        setState(() {
+                                          tasks.doc(storedocs[i]['id'])
+                                              .update({
+                                            "checkIconColor":0
+                                          }).then((result){
+                                            print("new USer true");
+                                          }).catchError((onError){
+                                            print("onError");
+                                          });
+                                        });
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 14,
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                    onPressed: ()=>{
+                                      undoTitle = storedocs[i]['title'],
+                                      undoNote = storedocs[i]['note'],
+                                      undoStartTime = storedocs[i]['startTime'],
+                                      undoEndTime = storedocs[i]['endTime'],
+                                      undoColor = storedocs[i]['selectedColor'],
+                                      dbdate = storedocs[i]['date'],
+                                      enableInfo = storedocs[i]['enable'],
+                                      deleteTask(storedocs[i]['id']),
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          duration: const Duration(seconds: 2),
+                                          content: Container(
+                                            height: 100,
+                                            child: Column(
+                                              children: [
+                                                Text("You have successfully deleted the task...",
+                                                  style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20
                                                   ),),
-                                                  IconButton(
-                                                      icon: Icon(Icons.undo,
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text("Want to undo the task",style: TextStyle(
                                                         color: Colors.white,
-                                                        size: 20,
-                                                      ),
-                                                      onPressed: ()=>{undoTask(storedocs[i]['id'])}),
-                                                ],
-                                              )
+                                                        fontSize: 20
+                                                    ),),
+                                                    IconButton(
+                                                        icon: Icon(Icons.undo,
+                                                          color: Colors.white,
+                                                          size: 20,
+                                                        ),
+                                                        onPressed: ()=>{
+                                                          if(enableInfo==true){
+                                                            undoTask(storedocs[i]['id'])
+                                                          }
+                                                        }),
+                                                  ],
+                                                )
 
 
-                                            ],
-                                          ),
-                                        )))},
-                                ),
+                                              ],
+                                            ),
+                                          )))},
+                                  ),
 
-                              ],
-                            ),
-                          )
-                        ],
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+
                       ),
 
                     ),
-
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  )
+                  
                 ],
               ]),
 
@@ -546,4 +612,5 @@ class _RoutinePageState extends State<RoutinePage> {
         ),
         duration: Duration(milliseconds: 600));
   }
+
 }

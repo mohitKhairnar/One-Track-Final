@@ -20,18 +20,24 @@ class _AddTaskPageState extends State<AddTaskPage> {
   final  _noteController = TextEditingController();
   final  _startTimeController = TextEditingController();
   final  _endTimeController = TextEditingController();
+  final  _dateController = TextEditingController();
   final  _colorController = TextEditingController();
+  final _repeatController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   String _endTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
+  String _date = DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
   String _selectedRepeat = "None";
   int dbcheckIconColor = 0;
+  bool enabled = true;
   var dbtitle = "";
   var dbnote = "";
   var dbstartTime = "";
   var dbendTime = "";
+  var dbdate = "";
+  var dbrepeat = "None";
   List<String> repeatList = [
-    "None","Daily","Weekly","Monthly"
+    "None","Daily"
   ];
   var _selectedColor = 0;
 
@@ -52,7 +58,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
   CollectionReference tasks = FirebaseFirestore.instance.collection('tasks');
   Future<void>addUser(){
-    return tasks.add({'title':dbtitle,'note':dbnote,'startTime':dbstartTime,'endTime':dbendTime,'selectedColor':_selectedColor,'checkIconColor':dbcheckIconColor})
+    return tasks.add({'title':dbtitle,'note':dbnote,'startTime':dbstartTime,'endTime':dbendTime,'selectedColor':_selectedColor,'checkIconColor':dbcheckIconColor,'date':dbdate,'enable':enabled,'repeat':dbrepeat})
         .then((value) => print("task added")).catchError((error)=>print('Failed to add task'));
   }
   updateUser(){
@@ -141,7 +147,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                                   SizedBox(
                                     height: 8,
                                   ),
-                                  MyInputField(title: "Date", hint: DateFormat.yMd().format(_selectedDate),
+                                  MyInputField(title: "Date", hint: _date,controller: _dateController,
                                     widget: IconButton(
                                       icon: Icon(Icons.calendar_today_outlined,
                                         color: Colors.blueGrey[900],
@@ -188,7 +194,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                                   SizedBox(
                                     height: 8,
                                   ),
-                                  MyInputField(title: "Repeat", hint: "$_selectedRepeat",
+                                  MyInputField(title: "Repeat", hint: "$_selectedRepeat",controller: _repeatController,
                                     widget: DropdownButton(
                                       icon: Icon(Icons.keyboard_arrow_down,
                                         color: Colors.blueGrey[900],
@@ -197,18 +203,21 @@ class _AddTaskPageState extends State<AddTaskPage> {
                                       elevation: 4,
                                       style: subTitleStyle,
                                       underline: Container(height: 0,),
-                                      onChanged: (String? newValue){
-                                        setState(() {
-                                          _selectedRepeat = newValue!;
-                                        });
-                                      },
+
                                       items: repeatList.map<DropdownMenuItem<String>>((String? value){
                                         return DropdownMenuItem<String>(
                                             value: value,
                                             child: Text(value!,style:TextStyle(color:Colors.grey)));
                                       }
                                       ).toList(),
-
+                                      onChanged: (String? newValue){
+                                        setState(() {
+                                          _selectedRepeat = newValue!;
+                                          // dbrepeat = newValue!;
+                                          print(newValue);
+                                          dbrepeat = _selectedRepeat;
+                                        });
+                                      },
                                     ),
                                   ),
                                   SizedBox(
@@ -271,7 +280,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
         dbnote = _noteController.text;
         dbstartTime = _startTime.characters.toString();
         dbendTime = _endTime.characters.toString();
+        dbdate = _date.characters.toString();
         dbcheckIconColor = 0;
+        enabled = true;
         addUser();
         clearText();
       });
@@ -283,6 +294,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     }
     else if(_titleController.text.isEmpty || _noteController.text.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
           content: Text("All fields are mandatory")));
     }
   }
@@ -326,7 +338,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     DateTime? _pickerDate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2022), lastDate: DateTime(2500));
     if(_pickerDate!=null){
       setState(() {
-        _selectedDate = _pickerDate;
+        _date = DateFormat('yyyy-MM-dd').format(_pickerDate).toString();
       });
     }
     else{
