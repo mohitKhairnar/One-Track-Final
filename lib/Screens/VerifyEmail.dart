@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lottie/lottie.dart';
 import 'package:mini_project_ui/Screens/Login.dart';
-import 'package:mini_project_ui/Screens/signup_screen.dart';
-import 'package:email_auth/email_auth.dart';
 
 
 class verifyEmail extends StatefulWidget {

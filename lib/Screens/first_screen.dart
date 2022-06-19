@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mini_project_ui/Screens/Login.dart';
 import 'package:mini_project_ui/Screens/fitnessPage.dart';
 import 'dart:ui';
@@ -228,15 +229,14 @@ class _Drawer2State extends State<Drawer2> {
         child: ListView(
           children: [
             Container(
-              child: Text(" \n Hello User !",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+              child: Text(" \n      Settings",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+
             ),
-            Container(
-              child: Text(" What to Logout ?  ",style: TextStyle(fontSize: 18),),
-            ),
+            Lottie.asset('assets/log-out.json'),
+
             SizedBox(height: 25),
-            // Lottie.asset('assets/eat17.json'),
             ListTile(
-              title: const Text('Logout'),
+              title: const Text('   Logout', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
               onTap: () {
                FirebaseAuth.instance.signOut();
                Navigator.push(
