@@ -106,7 +106,24 @@ class _FitnessPageState extends State<FitnessPage> {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 35.0)),
-                  Text('key to good health',
+                  // Text('key to good health',
+                  //     style: TextStyle(
+                  //         fontFamily: 'Montserrat',
+                  //         color: Colors.white,
+                  //         fontSize: 25.0)),
+                  // Text('\n\nfood items',
+                  //     style: TextStyle(
+                  //         fontFamily: 'Montserrat',
+                  //         color: Colors.white,
+                  //         fontSize: 25.0))
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top:40.0,left: 40.0),
+              child: Column(
+                children: <Widget>[
+                  Text('Key to good health',
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Colors.white,
@@ -118,6 +135,11 @@ class _FitnessPageState extends State<FitnessPage> {
                   //         fontSize: 25.0))
                 ],
               ),
+            ),
+
+            Padding(
+                padding: EdgeInsets.only(left: 20.0)
+
             ),
             SizedBox(width: 50.0,),
             Positioned(
@@ -134,7 +156,7 @@ class _FitnessPageState extends State<FitnessPage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 80),),
                       // Lottie.asset('assets/yoga.json'),
@@ -158,7 +180,7 @@ class _FitnessPageState extends State<FitnessPage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage('images/yogamain.jpg'),
+                                      image: AssetImage('images/yoga_first.png'),
                                     ),
                                     color: Colors.white,
                                     border: Border(
@@ -185,7 +207,7 @@ class _FitnessPageState extends State<FitnessPage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage('images/cardiomain.jpg'),
+                                      image: AssetImage('images/cardio_first.png'),
                                     ),
                                     color: Colors.white,
                                     border: Border(
@@ -212,7 +234,7 @@ class _FitnessPageState extends State<FitnessPage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: AssetImage('images/sportsmain.jpg')),
+                                        image: AssetImage('images/sports_first.png')),
                                     color: Colors.white,
                                     border: Border(
                                       top: BorderSide(
@@ -238,7 +260,7 @@ class _FitnessPageState extends State<FitnessPage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: AssetImage('images/weightmain.jpg')),
+                                        image: AssetImage('images/weight_first.png')),
                                     color: Colors.white,
                                     border: Border(
                                       top: BorderSide(

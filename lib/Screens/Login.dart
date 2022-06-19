@@ -55,24 +55,22 @@ class _LoginState extends State<Login> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print("No User Found for that Email");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.orangeAccent,
+            backgroundColor: Colors.red,
             content: Text(
-              "No User Found for that Email",
-              style: TextStyle(fontSize: 18.0, color: Colors.black),
+              "No user found !",
+              style: TextStyle(fontSize: 14.0, color: Colors.white),
             ),
           ),
         );
       } else if (e.code == 'wrong-password') {
-        print("Wrong Password Provided by User");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.orangeAccent,
+            backgroundColor: Colors.red,
             content: Text(
-              "Wrong Password Provided by User",
-              style: TextStyle(fontSize: 18.0, color: Colors.black),
+              "Wrong Password entered!",
+              style: TextStyle(fontSize: 14.0, color: Colors.white),
             ),
           ),
         );
@@ -94,21 +92,21 @@ class _LoginState extends State<Login> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 45),
+          SizedBox(height: 35),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('One',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
-                      color: Colors.orange,
+                      color: Colors.lightBlue,
                       fontWeight: FontWeight.bold,
-                      fontSize: 55.0)),
+                      fontSize: 69.0)),
               SizedBox(width: 5.0),
               Text('Track',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
-                      color: Colors.orangeAccent,
+                      color: Colors.lightBlueAccent,
                       fontSize: 30.0))
             ],
           ),
@@ -116,14 +114,13 @@ class _LoginState extends State<Login> {
             key: _formKey,
             child: SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Lottie.asset('assets/password_unlock.json'),
+                  Container(
+                      height: 355,
+                      child: Lottie.asset('images/ll.json')),
                   Padding(
-                    padding: const EdgeInsets.only(top: 25.0),
-                    child: Center(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Container(
@@ -133,29 +130,29 @@ class _LoginState extends State<Login> {
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.orangeAccent, width: 2.0),
+                                    color: Colors.blueGrey, width: 2.0),
                               ),
                               prefixIcon: Icon(
                                 Icons.mail,
-                                color: Colors.orangeAccent,
+                                color: Colors.black54,
                               ),
                               labelText: 'Email: ',
                               labelStyle: TextStyle(
-                                  fontSize: 20.0, color: Colors.orangeAccent),
+                                  fontSize: 16.0, color: Colors.blueGrey),
                               contentPadding:
                                   EdgeInsets.fromLTRB(20, 15, 20, 15),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               errorStyle: TextStyle(
-                                  color: Colors.redAccent, fontSize: 15),
+                                  color: Colors.black, fontSize: 14),
                             ),
                             controller: emailController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please Enter Email';
                               } else if (!value.contains('@')) {
-                                return 'Please Enter Valid Email';
+                                return 'Please enter valid email';
                               }
                               return null;
                             },
@@ -169,38 +166,38 @@ class _LoginState extends State<Login> {
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.orangeAccent, width: 2.0),
+                                    color: Colors.blueGrey, width: 2.0),
                               ),
                               prefixIcon: Icon(
                                 Icons.key,
-                                color: Colors.orangeAccent,
+                                color: Colors.black54,
                               ),
                               labelText: 'Password: ',
                               labelStyle: TextStyle(
-                                  fontSize: 20.0, color: Colors.orangeAccent),
+                                  fontSize: 16.0, color: Colors.blueGrey),
                               contentPadding:
                                   EdgeInsets.fromLTRB(20, 15, 20, 15),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               errorStyle: TextStyle(
-                                  color: Colors.redAccent, fontSize: 15),
+                                  color: Colors.black, fontSize: 14),
                             ),
                             controller: passwordController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please Enter Password';
+                                return 'Please enter password';
                               }
                               return null;
                             },
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 60.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment:CrossAxisAlignment.start,
                             children: [
                               ElevatedButton(
                                 style: ButtonStyle(
@@ -220,7 +217,27 @@ class _LoginState extends State<Login> {
                                 },
                                 child: Text(
                                   'Login',
-                                  style: TextStyle(fontSize: 18.0),
+                                  style: TextStyle(fontSize: 18.0),),),
+                              Center(
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.black),
+                                  ),
+                                  onPressed: () {
+                                    // Validate returns true if the form is valid, otherwise false.
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        email = emailController.text;
+                                        password = passwordController.text;
+                                      });
+                                      userLogin();
+                                    }
+                                  },
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(fontSize: 21.0),
+                                  ),
                                 ),
                               ),
                               TextButton(
@@ -237,44 +254,39 @@ class _LoginState extends State<Login> {
                                     'Forgot Password ?',
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        color: Colors.orangeAccent),
+                                        color: Colors.blueGrey),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don't have an Account?",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              TextButton(
-                                onPressed: () => {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Signup()),
-                                    // transitionDuration: Duration(seconds: 0),
-                                  ),
-                                  // (route) => false)
-                                },
-                                child: Text(
-                                  'Signup',
-                                  style: TextStyle(
-                                      fontSize: 21, color: Colors.orangeAccent),
+                        //   ),
+                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Don't have an Account?",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            TextButton(
+                              onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Signup()),
+                                  // transitionDuration: Duration(seconds: 0),
                                 ),
+                                // (route) => false)
+                              },
+                              child: Text(
+                                'Signup',
+                                style: TextStyle(
+                                    fontSize: 21, color: Colors.lightBlue),
                               ),
-
-                            ],
-                          ),
-                        )
+                            ),
+                        ],
+                        ),
+                        ],),
+                        ),
                       ],
                     ),
                   ),
