@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +35,36 @@ class FoodPage extends StatefulWidget {
 
 class _FoodPageState extends State<FoodPage> {
   DateTime _selectedDate = DateTime.now();
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   var bmi;
+
+  void isBMI() async {
+    final User? user = auth.currentUser;
+    final uid = user?.uid;
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('food').doc(uid).get();
+    Map<String, dynamic>? data = querySnapshot.data();
+    if(data == null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BMIPage(),
+        ),
+      );
+    } else {
+      setState(() {
+        bmi = data['bmi'];
+      });
+    }
+  }
+  @override
+  void initState(){
+    // TODO: implement initState
+    super.initState();
+    isBMI();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,7 +188,7 @@ class _FoodPageState extends State<FoodPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => UpDiet(),
+                            builder: (context) => UpDiet(bmi: bmi,),
                           ),
                         );
                       }, // Handle your callback.

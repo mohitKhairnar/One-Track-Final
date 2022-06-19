@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -7,7 +9,12 @@ class DetailsPage extends StatefulWidget {
   double weight;
   String vit;
 
-  DetailsPage({this.heroTag, this.foodName, required this.foodCal, required this.weight, required this.vit});
+  DetailsPage(
+      {this.heroTag,
+      this.foodName,
+      required this.foodCal,
+      required this.weight,
+      required this.vit});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -16,7 +23,9 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   var selectedCard = 'CALORIES';
   late double inputCal = 0;
-  late int counter  =0 ;
+  late int counter = 0;
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,10 +71,10 @@ class _DetailsPageState extends State<DetailsPage> {
                     tag: widget.heroTag,
                     child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25.0),
-                            topRight:Radius.circular(25.0),
-                          ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25.0),
+                              topRight: Radius.circular(25.0),
+                            ),
                             image: DecorationImage(
                                 image: AssetImage(widget.heroTag),
                                 fit: BoxFit.cover)),
@@ -105,10 +114,10 @@ class _DetailsPageState extends State<DetailsPage> {
                               InkWell(
                                 onTap: () {
                                   setState(() {
-                                    if(inputCal > 0){
-                                      inputCal-=widget.foodCal;
+                                    if (inputCal > 0) {
+                                      inputCal -= widget.foodCal;
                                       counter--;
-                                    }else {
+                                    } else {
                                       inputCal = 0;
                                       counter = 0;
                                     }
@@ -137,7 +146,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               InkWell(
                                 onTap: () {
                                   setState(() {
-                                    inputCal+=widget.foodCal;
+                                    inputCal += widget.foodCal;
                                     counter++;
                                   });
                                 },
@@ -166,33 +175,81 @@ class _DetailsPageState extends State<DetailsPage> {
                         height: 150.0,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-
                           children: <Widget>[
                             // _buildInfoCard('WEIGHT', '${widget.weight}', 'G'),
                             SizedBox(width: 10.0),
-                            Center(child: _buildInfoCard('CALORIES', '${widget.foodCal}', 'CAL')),
+                            Center(
+                                child: _buildInfoCard(
+                                    'CALORIES', '${widget.foodCal}', 'CAL')),
                             SizedBox(width: 10.0),
                             // _buildInfoCard('VITAMINS', widget.vit, 'VIT'),
                           ],
-                        )
-                    ),
+                        )),
                     SizedBox(height: 20.0),
                     Padding(
-                      padding: EdgeInsets.only(bottom:5.0),
+                      padding: EdgeInsets.only(bottom: 5.0),
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0), bottomLeft: Radius.circular(25.0), bottomRight: Radius.circular(25.0)),
-                            color: Colors.black
-                        ),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.0),
+                                topRight: Radius.circular(10.0),
+                                bottomLeft: Radius.circular(25.0),
+                                bottomRight: Radius.circular(25.0)),
+                            color: Colors.black),
                         height: 50.0,
-                        child: Center(
-                          child: Text(
-                              'save',
+                        child: InkWell(
+                          onTap: () async {
+                            final User? user = auth.currentUser;
+                            final uid = user?.uid;
+                            DateTime now = new DateTime.now();
+                            DateTime date =
+                                new DateTime(now.year, now.month, now.day);
+                            await firebaseFirestore
+                                .collection('food')
+                                .doc(uid)
+                                .collection(date.toString())
+                                .doc('${widget.foodName}')
+                                .set({
+                              'cal': inputCal,
+                              'name': widget.foodName
+                            }).then((value) {
+                              print("Data Added");
+                            }).catchError((onError) {
+                              print(onError.toString());
+                            });
+
+                            final querySnapshot = await FirebaseFirestore
+                                .instance
+                                .collection('food')
+                                .doc(uid)
+                                .collection(date.toString())
+                                .get();
+                            var data = querySnapshot.docs;
+                            double ans = 0.0;
+
+                            data.forEach((element) {
+                              Map<String, dynamic>? elem = element.data();
+                              ans += elem['cal'];
+                            });
+                            String tcal = date.toString() + 'TCal';
+
+                            await firebaseFirestore
+                                .collection('food')
+                                .doc(uid)
+                                .set({tcal: ans});
+
+                            return;
+                            // // print('---------------------------------------');
+                            // // print(ans);
+                            // // print('---------------------------------------');
+                            // await firebaseFirestore.collection('${widget.cn}')
+                            //     .doc(uid)
+                            //     .set({date.toString(): ans.toString()});
+                          },
+                          child: Text('save',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontFamily: 'Montserrat'
-                              )
-                          ),
+                                  fontFamily: 'Montserrat')),
                         ),
                       ),
                     )
@@ -212,18 +269,17 @@ class _DetailsPageState extends State<DetailsPage> {
             curve: Curves.easeIn,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: cardTitle == selectedCard ? Color(0xFF7A9BEE) : Colors.white,
+              color:
+                  cardTitle == selectedCard ? Color(0xFF7A9BEE) : Colors.white,
               border: Border.all(
-                  color: cardTitle == selectedCard ?
-                  Colors.transparent :
-                  Colors.grey.withOpacity(0.3),
+                  color: cardTitle == selectedCard
+                      ? Colors.transparent
+                      : Colors.grey.withOpacity(0.3),
                   style: BorderStyle.solid,
-                  width: 0.75
-              ),
-
+                  width: 0.75),
             ),
             height: 100.0,
-            width: MediaQuery.of(context).size.width-75,
+            width: MediaQuery.of(context).size.width - 75,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,8 +290,9 @@ class _DetailsPageState extends State<DetailsPage> {
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 12.0,
-                          color:
-                          cardTitle == selectedCard ? Colors.white : Colors.grey.withOpacity(0.7),
+                          color: cardTitle == selectedCard
+                              ? Colors.white
+                              : Colors.grey.withOpacity(0.7),
                         )),
                   ),
                   Padding(
@@ -262,10 +319,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       ],
                     ),
                   )
-                ]
-            )
-        )
-    );
+                ])));
   }
 
   selectCard(cardTitle) {

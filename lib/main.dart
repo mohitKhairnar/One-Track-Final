@@ -9,6 +9,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
       home: Scaffold(
           body: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),

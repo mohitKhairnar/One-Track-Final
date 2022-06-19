@@ -1,14 +1,27 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class CalculatorBrain {
   CalculatorBrain({required this.weight, required this.height});
 
   final int height;
   final int weight;
   double bmi = 0;
+  Future<void> addData()async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user?.uid;
+    firebaseFirestore.collection('food')
+        .doc(uid)
+        .set({'bmi':bmi.toStringAsFixed(1)});
+  }
+  String calculateBMI()  {
 
-  String calculateBMI() {
     bmi = weight.toDouble() / (pow(height.toDouble() / 100, 2));
+    addData();
     return bmi.toStringAsFixed(1);
   }
 
