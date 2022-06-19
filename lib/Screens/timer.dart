@@ -58,11 +58,16 @@ class _CountdownPageState extends State<CountdownPage>
     DateTime date = new DateTime(now.year, now.month, now.day);
     var dur = Duration(seconds: (widget.time == null ? 60 : widget.time));
     Duration count = controller.duration! * controller.value;
+    int? cals = controller.duration?.inSeconds;
+    print("-----------------------------");
+    print(cals);
+    // replace 10 to cal wrt hr
+    double calb = ((10 * cals!)/3600);
     await firebaseFirestore
         .collection('${widget.cn}')
         .doc(uid)
         .collection(date.toString()).doc('${widget.name}')
-        .set({'time': (controller.duration).toString(),'${widget.cn}Name':widget.name}).then((value) {
+        .set({'time': (controller.duration).toString(),'${widget.cn}Name':widget.name,'cal':calb}).then((value) {
       print("Data Added");
     }).catchError((onError) {
       print(onError.toString());
@@ -75,12 +80,12 @@ class _CountdownPageState extends State<CountdownPage>
     if(data == null){
       await firebaseFirestore.collection('${widget.cn}')
           .doc(uid)
-          .set({date.toString(): (controller.duration).toString()});
+          .set({date.toString(): (controller.duration).toString(),(date.toString()+"cal"): calb });
       return;
     }
 
     var tmp = data[date.toString()];
-    //
+    double tcalb = data[date.toString()+"cal"] + calb;
     var ans ;
     if(tmp == null){
       ans = controller.duration;
@@ -94,7 +99,7 @@ class _CountdownPageState extends State<CountdownPage>
     // print('---------------------------------------');
     await firebaseFirestore.collection('${widget.cn}')
         .doc(uid)
-        .set({date.toString(): ans.toString()});
+        .set({date.toString(): ans.toString(),(date.toString()+"cal"): tcalb});
     setState(() {
       isAdd = true;
     });
