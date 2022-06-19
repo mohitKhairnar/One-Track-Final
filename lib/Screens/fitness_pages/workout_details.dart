@@ -13,7 +13,8 @@ class WorkoutDetailsPage extends StatefulWidget {
   final workoutName;
   final workoutinfo;
   final t;
-  WorkoutDetailsPage({this.heroTag, this.workoutName,this.workoutinfo,this.t});
+  final cp;
+  WorkoutDetailsPage({this.heroTag, this.workoutName,this.workoutinfo,this.t,this.cp});
 
   @override
   _WorkoutDetailsPageState createState() => _WorkoutDetailsPageState();
@@ -183,7 +184,7 @@ class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => CountdownPage(time:widget.t,name: widget.workoutName,cn: 'Workout'),
+                                          builder: (context) => CountdownPage(time:widget.t,name: widget.workoutName,cn: 'Workout',ct: widget.cp),
                                         ),
                                       );
                                     },

@@ -100,7 +100,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               '\n(i) Knee push-ups (great for beginners).\n'
                               '\n(ii) Wall pushups\n'
                               '\n(iii) Incline pushups; This is a slightly tougher push-up variant compared to knee and wall push-ups. Incline push-ups are performed with the hands positioned higher than the feet.\n'
-                              '\n(iv) Decline push-ups: require you to keep your legs on a higher plane and hands on the floor. You can use a bench, a box, or any piece of furniture to do this push-up.\n',180 ),
+                              '\n(iv) Decline push-ups: require you to keep your legs on a higher plane and hands on the floor. You can use a bench, a box, or any piece of furniture to do this push-up.\n',180,130 ),
                           _buildPositions(context,'leg_raise', 'Leg Raise','Fit & Fine','\nSteps:\n''\n1) Lie on your back, legs straight and together. \n'
                               '\n2) Keep your legs straight and lift them all the way up to the ceiling until your butt comes off the floor. \n'
                               '\n3) Slowly lower your legs back down till they’re just above the floor. Hold for a moment.\n'
@@ -119,13 +119,13 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               '\n3) An effective exercise for lower abs\n'
                               '\n4) Can strengthen the hamstrings, calf mucles, and glutes\n'
                               '\n5) It is a great exercise that can be done even while lying down in bed\n'
-                              '\n6) Helps improve focus and attention\n',120 ),
+                              '\n6) Helps improve focus and attention\n',120,100 ),
                           _buildPositions(context,'conc_curl', 'Concentration Curl','Fit & Fine','\nSteps:\n'
                               '\n1)Sit on a bench that’s set at a height so your knees are bent at 90° with your feet flat on the floor.\n'
                               '\n2)Pick up a dumbbell in your right hand and place the back of your upper right arm on the inner part of your right thigh.Your arm should be extended holding the weight off the floor.\n'
                               '\n3)Slowly curl the weight up, only moving your forearms – the position of your upper arm on your thigh will help you keep it still during the exercise.'
                               '\n4)At the top of the move, pause for a beat and squeeze your biceps, then slowly lower the weight back to the start.\n'
-                              '\n5)Do all your reps on one arm, then switch to the other.\n',120 ),
+                              '\n5)Do all your reps on one arm, then switch to the other.\n',120,100 ),
                           _buildPositions(context,'plank', 'Plank','Fit & Fine','\nSteps:\n'
                               '\n1) Lye down flat on the ground.\n'
                               '\n2) Place your elbow and legs flat (like Push-ups).\n'
@@ -135,10 +135,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
                               '\n\n A strong core is much more than six-pack abs. \n'
                               '\nWe use our core muscles unconsciously for several actions in a day ranging from bending and lifting weight, for balance and even to managing our breathing.\n'
                               '\nA weakened core can cause serious injury if ignored.\n'
-                              '\nThe plank position helps target the core muscles and give them a good burn to build muscle strength.\n',120 ),
-                          _buildPositions(context,'Bent_overrow', 'Bent Overrow','Fit & Fine','hhh',120 ),
-                          _buildPositions(context,'tricep_dip', 'Tricep Dip','Fit & Fine','hhh',120 ),
-                          _buildPositions(context,'over_ext', 'Overhead Extension','Fit & Fine','hhh',120 ),
+                              '\nThe plank position helps target the core muscles and give them a good burn to build muscle strength.\n',120,100 ),
+                          _buildPositions(context,'Bent_overrow', 'Bent Overrow','Fit & Fine','hhh',120,100 ),
+                          _buildPositions(context,'tricep_dip', 'Tricep Dip','Fit & Fine','hhh',120,100 ),
+                          _buildPositions(context,'over_ext', 'Overhead Extension','Fit & Fine','hhh',120,100 ),
                           // _buildPositions(context,'bench_press', 'Bench Press'),
                           // _buildPositions(context,'Dal', 'Dal'),
                           // _buildPositions(context,'rice', 'Rice'),
@@ -329,13 +329,13 @@ class _WorkoutListState extends State<WorkoutList> {
         ));
   }
 }
-Widget _buildPositions(BuildContext context, String img, String workoutName,String WorkoutSubtitle,String workoutinfo,int time) {
+Widget _buildPositions(BuildContext context, String img, String workoutName,String WorkoutSubtitle,String workoutinfo,int time,int calperh) {
   return Padding(
       padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
       child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", workoutName: workoutName,workoutinfo:workoutinfo,t:time)
+                builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", workoutName: workoutName,workoutinfo:workoutinfo,t:time,cp:calperh)
             ));
           },
           child: Row(
@@ -382,7 +382,7 @@ Widget _buildPositions(BuildContext context, String img, String workoutName,Stri
                   color: Colors.black,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", workoutName: workoutName,workoutinfo:workoutinfo,t:time)
+                        builder: (context) => WorkoutDetailsPage(heroTag: "images/$img.jpg", workoutName: workoutName,workoutinfo:workoutinfo,t:time,cp:calperh)
                     ));
                   }
               )
