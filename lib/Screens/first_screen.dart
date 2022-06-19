@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_project_ui/Screens/Login.dart';
+import 'package:mini_project_ui/Screens/finalDiet.dart';
 import 'package:mini_project_ui/Screens/fitnessPage.dart';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
@@ -153,7 +154,7 @@ class _MyAppState extends State<MyApp> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UpDiet(),
+                              builder: (context) => FoodPage(),
                             ),
                           );
                         }, // Handle your callback.

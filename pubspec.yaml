@@ -44,7 +44,8 @@ dependencies:
   email_auth: ^1.0.0
   cloud_firestore: "^2.4.0"
   icon_decoration: any
-
+  animated_flip_counter: ^0.2.0
+  font_awesome_flutter: ^10.1.0
   connectivity_plus: ^2.3.4
   flutter_local_notifications: ^8.2.0
 
