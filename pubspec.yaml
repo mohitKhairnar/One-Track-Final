@@ -51,6 +51,7 @@ dependencies:
   flutter_local_notifications: ^8.2.0
   rxdart: ^0.27.1
   flutter_launcher_icons: ^0.9.3
+  slide_to_confirm: ^1.1.0
 
 #  google_fonts: ^2.3.1
 
