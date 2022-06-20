@@ -12,8 +12,9 @@ class CardioDetailsPage extends StatefulWidget {
   final heroTag;
   final cardioName;
   final cardioinfo;
+  final ct;
   final t;
-  CardioDetailsPage({this.heroTag, this.cardioName, this.cardioinfo, this.t});
+  CardioDetailsPage({this.heroTag, this.cardioName, this.cardioinfo, this.t,this.ct});
 
   @override
   _CardioDetailsPageState createState() => _CardioDetailsPageState();
@@ -181,7 +182,7 @@ class _CardioDetailsPageState extends State<CardioDetailsPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => CountdownPage(time:widget.t,name: widget.cardioName,cn: 'Cardio'),
+                                          builder: (context) => CountdownPage(time:widget.t,name: widget.cardioName,cn: 'Cardio',ct: widget.ct),
                                         ),
                                       );
                                     },

@@ -10,9 +10,9 @@ import 'package:firebase_core/firebase_core.dart';
 class CountdownPage extends StatefulWidget {
   final time;
   final name;
-
+  final ct;
   final cn;
-  const CountdownPage({Key? key, this.time, this.name,this.cn}) : super(key: key);
+  const CountdownPage({Key? key, this.time, this.name,this.cn,this.ct}) : super(key: key);
 
   @override
   _CountdownPageState createState() => _CountdownPageState();
@@ -62,7 +62,7 @@ class _CountdownPageState extends State<CountdownPage>
     print("-----------------------------");
     print(cals);
     // replace 10 to cal wrt hr
-    double calb = ((10 * cals!)/3600);
+    double calb = ((widget.ct * cals!)/3600);
     await firebaseFirestore
         .collection('${widget.cn}')
         .doc(uid)
