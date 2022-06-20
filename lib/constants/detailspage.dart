@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DetailsPage extends StatefulWidget {
   final heroTag;
@@ -188,68 +189,126 @@ class _DetailsPageState extends State<DetailsPage> {
                     SizedBox(height: 20.0),
                     Padding(
                       padding: EdgeInsets.only(bottom: 5.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10.0),
-                                topRight: Radius.circular(10.0),
-                                bottomLeft: Radius.circular(25.0),
-                                bottomRight: Radius.circular(25.0)),
-                            color: Colors.black),
-                        height: 50.0,
-                        child: InkWell(
-                          onTap: () async {
-                            final User? user = auth.currentUser;
-                            final uid = user?.uid;
-                            DateTime now = new DateTime.now();
-                            DateTime date =
+                      child: ElevatedButton(
+
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(Colors.black),
+                        ),
+                        onPressed: () async {
+                          final User? user = auth.currentUser;
+                          final uid = user?.uid;
+                          DateTime now = new DateTime.now();
+                          DateTime date =
+                          new DateTime(now.year, now.month, now.day);
+                          await firebaseFirestore
+                              .collection('food')
+                              .doc(uid)
+                              .collection(date.toString())
+                              .doc('${widget.foodName}')
+                              .set({
+                            'cal': inputCal,
+                            'name': widget.foodName
+                          }).then((value) {
+                            print("Data Added");
+                          }).catchError((onError) {
+                            print(onError.toString());
+                          });
+
+                          final querySnapshot = await FirebaseFirestore
+                              .instance
+                              .collection('food')
+                              .doc(uid)
+                              .collection(date.toString())
+                              .get();
+                          var data = querySnapshot.docs;
+                          double ans = 0.0;
+
+                          data.forEach((element) {
+                            Map<String, dynamic>? elem = element.data();
+                            ans += elem['cal'];
+                          });
+                          String tcal = date.toString() + 'TCal';
+
+                          await firebaseFirestore
+                              .collection('food')
+                              .doc(uid)
+                              .set({tcal: ans});
+                          Fluttertoast.showToast(msg: "Saved successfully");
+                          return;
+                          // // print('---------------------------------------');
+                          // // print(ans);
+                          // // print('---------------------------------------');
+                          // await firebaseFirestore.collection('${widget.cn}')
+                          //     .doc(uid)
+                          //     .set({date.toString(): ans.toString()});
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  topRight: Radius.circular(10.0),
+                                  bottomLeft: Radius.circular(25.0),
+                                  bottomRight: Radius.circular(25.0)),
+                              color: Colors.black),
+                          height: 50.0,
+                          child: Center(
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black),
+                              ),
+                              onPressed: () async {
+                                final User? user = auth.currentUser;
+                                final uid = user?.uid;
+                                DateTime now = new DateTime.now();
+                                DateTime date =
                                 new DateTime(now.year, now.month, now.day);
-                            await firebaseFirestore
-                                .collection('food')
-                                .doc(uid)
-                                .collection(date.toString())
-                                .doc('${widget.foodName}')
-                                .set({
-                              'cal': inputCal,
-                              'name': widget.foodName
-                            }).then((value) {
-                              print("Data Added");
-                            }).catchError((onError) {
-                              print(onError.toString());
-                            });
+                                await firebaseFirestore
+                                    .collection('food')
+                                    .doc(uid)
+                                    .collection(date.toString())
+                                    .doc('${widget.foodName}')
+                                    .set({
+                                  'cal': inputCal,
+                                  'name': widget.foodName
+                                }).then((value) {
+                                  print("Data Added");
+                                }).catchError((onError) {
+                                  print(onError.toString());
+                                });
 
-                            final querySnapshot = await FirebaseFirestore
-                                .instance
-                                .collection('food')
-                                .doc(uid)
-                                .collection(date.toString())
-                                .get();
-                            var data = querySnapshot.docs;
-                            double ans = 0.0;
+                                final querySnapshot = await FirebaseFirestore
+                                    .instance
+                                    .collection('food')
+                                    .doc(uid)
+                                    .collection(date.toString())
+                                    .get();
+                                var data = querySnapshot.docs;
+                                double ans = 0.0;
 
-                            data.forEach((element) {
-                              Map<String, dynamic>? elem = element.data();
-                              ans += elem['cal'];
-                            });
-                            String tcal = date.toString() + 'TCal';
+                                data.forEach((element) {
+                                  Map<String, dynamic>? elem = element.data();
+                                  ans += elem['cal'];
+                                });
+                                String tcal = date.toString() + 'TCal';
 
-                            await firebaseFirestore
-                                .collection('food')
-                                .doc(uid)
-                                .set({tcal: ans});
-
-                            return;
-                            // // print('---------------------------------------');
-                            // // print(ans);
-                            // // print('---------------------------------------');
-                            // await firebaseFirestore.collection('${widget.cn}')
-                            //     .doc(uid)
-                            //     .set({date.toString(): ans.toString()});
-                          },
-                          child: Text('save',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat')),
+                                await firebaseFirestore
+                                    .collection('food')
+                                    .doc(uid)
+                                    .set({tcal: ans});
+                                Fluttertoast.showToast(msg: "Saved successfully");
+                                return;
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('save',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Montserrat')),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     )

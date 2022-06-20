@@ -28,9 +28,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   double gained = 0.0;
   String burnt = "";
+  double tIntake =0.0;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  void fetchData() async {
+  Future<void> fetchData() async {
     final User? user = auth.currentUser;
     final uid = user?.uid;
     DateTime now = new DateTime.now();
@@ -48,14 +49,17 @@ class _MyAppState extends State<MyApp> {
         .collection('Workout')
         .doc(uid).get();
     print(querySnapshotCardio.data());
-    double burnt1 = (querySnapshotCardio.data()![(date.toString() + "cal")] == null)?0.0:querySnapshotCardio.data()![(date.toString() + "cal")];
-    burnt1 +=       (querySnapshotWorkOut.data()![(date.toString() + "cal")] == null)?0.0:querySnapshotWorkOut.data()![(date.toString() + "cal")] ;
+    double burnt1 = querySnapshotCardio.data() == null?0.0:((querySnapshotCardio.data()![(date.toString() + "cal")] == null)?0.0:querySnapshotCardio.data()![(date.toString() + "cal")]);
+    burnt1 +=      querySnapshotWorkOut.data() == null?0.00:((querySnapshotWorkOut.data()![(date.toString() + "cal")] == null)?0.0:querySnapshotWorkOut.data()![(date.toString() + "cal")]) ;
+    print(burnt1);
     setState(() {
-      gained = querySnapshotFood.data()![(date.toString() + "TCal")];
+      gained = (querySnapshotFood.data()![(date.toString() + "TCal")] == null)?0.0:querySnapshotFood.data()![(date.toString() + "TCal")];
       burnt = burnt1.toStringAsFixed(3);
-
+      tIntake = (gained-double.parse(burnt));
     });
   }
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -63,7 +67,11 @@ class _MyAppState extends State<MyApp> {
     fetchData();
   }
   @override
+
   Widget build(BuildContext context) {
+    setState(() {
+      print("Update");
+    });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -78,202 +86,206 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         endDrawer:Drawer2(),
-        body:  ListView(
-          physics: BouncingScrollPhysics(),
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 10.0, left: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    // width: 125.0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body:  RefreshIndicator(
+          onRefresh: fetchData,
+          child: ListView(
+
+            physics: BouncingScrollPhysics(),
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, left: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      // width: 125.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 40.0),
-              child: Row(
-                children: <Widget>[
-                  Text('One',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 55.0)),
-                  SizedBox(width: 5.0),
-                  Text('Track',
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.white,
-                          fontSize: 30.0))
-                ],
+              Padding(
+                padding: EdgeInsets.only(left: 40.0),
+                child: Row(
+                  children: <Widget>[
+                    Text('One',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 55.0)),
+                    SizedBox(width: 5.0),
+                    Text('Track',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: Colors.white,
+                            fontSize: 30.0))
+                  ],
+                ),
               ),
-            ),
-            //SizedBox(height: 20.0),
-            Container(
-              height: MediaQuery.of(context).size.height+104 ,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(70.0)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 10,),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              SizedBox(height: 5),
-                              Text(
-                                '  Total calories intake:             ',style: TextStyle(
-                                fontSize:28,
-                                fontWeight: FontWeight.bold,
+              //SizedBox(height: 20.0),
+              Container(
+                height: MediaQuery.of(context).size.height+104 ,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(70.0)),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                SizedBox(height: 5),
+                                Text(
+                                  '  Total calories :    ${tIntake < 0?0.0:tIntake}         ',style: TextStyle(
+                                  fontSize:28,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                   '  Calories gained:  $gained                             ',style: TextStyle(
+                                  fontSize:23,
+                                  color: Colors.blueGrey,
+                                ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  '   Calories burnt:  ${burnt}                                  ',style: TextStyle(
+                                  fontSize: 23.0,
+                                  color: Colors.blueGrey,
+                                ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        height: 155,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black87,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height*0.25,
+                        // width: 100,
+                        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          image: DecorationImage(
+                            image: AssetImage('images/dietpng.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FoodPage(),
                               ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                 '  Calories gained:  $gained                             ',style: TextStyle(
-                                fontSize:23,
-                                color: Colors.blueGrey,
-                              ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '   Calories burnt:  ${burnt}                                 ',style: TextStyle(
-                                fontSize: 23.0,
-                                color: Colors.blueGrey,
-                              ),
-                              ),
-                            ],
+                            );
+                          }, // Handle your callback.
+                          splashColor: Colors.black.withOpacity(0.3),
+                          child: Ink(
+                            height: 100,
+                            width: 100,
                           ),
                         ),
                       ),
-                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      height: 155,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black87,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height*0.25,
+                        // width: 100,
+                        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          image: DecorationImage(
+                            image: AssetImage('images/workoutpng.png'),
+                            fit: BoxFit.cover,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    ),
-                  ),
-                  SizedBox(height: 15,),
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height*0.25,
-                      // width: 100,
-                      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        image: DecorationImage(
-                          image: AssetImage('images/dietpng.png'),
-                          fit: BoxFit.cover,
                         ),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FoodPage(),
-                            ),
-                          );
-                        }, // Handle your callback.
-                        splashColor: Colors.black.withOpacity(0.3),
-                        child: Ink(
-                          height: 100,
-                          width: 100,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FitnessPage(),
+                              ),
+                            );
+                          }, // Handle your callback.
+                          splashColor: Colors.black.withOpacity(0.3),
+                          child: Ink(
+                            height: 100,
+                            width: 100,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height*0.25,
-                      // width: 100,
-                      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        image: DecorationImage(
-                          image: AssetImage('images/workoutpng.png'),
-                          fit: BoxFit.cover,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height*0.25,
+                        // width: 100,
+                        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          image: DecorationImage(
+                            image: AssetImage('images/routinepng.png'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FitnessPage(),
-                            ),
-                          );
-                        }, // Handle your callback.
-                        splashColor: Colors.black.withOpacity(0.3),
-                        child: Ink(
-                          height: 100,
-                          width: 100,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RoutinePage(),
+                              ),
+                            );
+                          }, // Handle your callback.
+                          splashColor: Colors.black.withOpacity(0.3),
+                          child: Ink(
+                            height: 100,
+                            width: 100,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height*0.25,
-                      // width: 100,
-                      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        image: DecorationImage(
-                          image: AssetImage('images/routinepng.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => RoutinePage(),
-                            ),
-                          );
-                        }, // Handle your callback.
-                        splashColor: Colors.black.withOpacity(0.3),
-                        child: Ink(
-                          height: 100,
-                          width: 100,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              ],
             ),
-            ],
-          ),
+        ),
         ),
     );
   }

@@ -16,7 +16,7 @@ class CalculatorBrain {
     final uid = user?.uid;
     firebaseFirestore.collection('food')
         .doc(uid)
-        .set({'bmi':bmi.toStringAsFixed(1)});
+        .update({'bmi':bmi.toStringAsFixed(1)});
   }
   String calculateBMI()  {
 

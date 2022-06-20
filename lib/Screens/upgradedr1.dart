@@ -48,38 +48,40 @@ class _UpDietState extends State<UpDiet> {
 
   List Items = [
     [1, 'tea', 'Tea', 40.00, 0.00, "AD"],
-    [2, 'eggs', ' Eggs(per pc)', 78.00, 0.00, "A"],
-    [3, '9', 'Hot Coffee', 30.00, 0.00, "A,B6"],
-    [4, '10', 'Fruit plate', 100.00, 0.00, "B,A,C"],
+    [2, 'eggs', ' Egg boiled(1 egg)', 93.00, 0.00, "A"],
+    [3, 'coffee', 'Hot Coffee', 30.00, 0.00, "A,B6"],
+    [4, 'apple', 'Apple(1 fruit)', 182.00, 0.00, "B,A,C"],
     [5, '3', 'Dosa', 133.00, 0.00, "AD"],
     [6, 'Fish', 'Salmon bowl Fish', 275.00, 0.00, "A,B6"],
-    [7, 'chapati', 'Roti', 70.00, 0.00, "AD"],
+    [7, 'Almonds', 'Almonds (Roasted)', 70.00, 0.00, "AD"],
     [8, '4', 'Medu vada(1pc)', 97.00, 0.00, "A"],
-    [9, 'Dal', 'Dal', 200.00, 0.00, "A"],
+    [9, 'banana', 'Banana (1 whole)', 134.00, 0.00, "A"],
     [10, 'rice', 'Rice', 250.00, 0.00, "AD"],
     [11, '5', 'Sprouts', 190.00, 0.00, "A,B6"],
-    [12, '6', 'Halwa/Shira', 383.00, 0.00, "B,A,C"],
+    [12, 'cashew', 'Cashewnuts', 383.00, 0.00, "B,A,C"],
     [13, '7', 'Upit', 250.00, 0.00, "AD"],
-    [14, 'fries', 'Fries', 00.00, 0.00, "AD"],
-    [15, 'Vertical Lockup on Black Background', 'Pohe', 250.00, 0.00, "A"],
-    [16, 'burger', 'Burger(per pc)', 300.00, 0.00, "A"],
-    [17, 'cake', 'Cake(per pc)', 140.00, 0.00, "AD"],
+    [14, 'kiwi', 'Kiwi', 00.00, 0.00, "AD"],
+    [15, 'milk', 'Milk(per 100 ml)', 44.00, 0.00, "A"],
+    [16, 'oats', 'Oats(1 cup)', 88.00, 0.00, "A"],
+    [17, 'omlette', 'Omlette', 140.00, 0.00, "AD"],
     [18, 'sandw', 'Sandwich', 250.00, 0.00, "A"],
     [19, 'fenu', 'Fenugreek', 49.00, 0.00, "A"],
-    [20, 'ice', 'Kulfi/Ice Cream', 267.00, 0.00, "B,A,C"],
-    [21, 'pan2', 'Pani puri(1 serving)', 329.00, 0.00, "AD"],
+    [20, 'papaya', 'Papaya', 267.00, 0.00, "B,A,C"],
+    [21, 'pears', 'Pears', 329.00, 0.00, "AD"],
     [22, 'samosa', 'Samosa', 262.00, 0.00, "A"],
-    [23, 'pizza', 'Pizza(per slice)', 270.00, 0.00, "AD"],
-    [24, 'Vertical Lockup on White Background', 'Idli', 39.00, 0.00, "AD"],
-    [25, '8', 'Misal pav', 290.00, 0.00, "AD"],
-    [26, '11', 'Biscuits(per pc)', 17.00, 0.00, "AD"],
+    [23, 'butter', 'Butter(1 tbsp.)', 102.00, 0.00, "AD"],
+    [24, 'Vertical Lockup on White Background', 'Idli(per pc)', 39.00, 0.00, "AD"],
+    [25, 'jam', 'Strawberries', 4.00, 0.00, "AD"],
+    [26, 'bread', 'Brown Bread(per pc)', 73.00, 0.00, "AD"],
     [27, 'ladyfig', 'Ladyfinger', 80.00, 0.00, "AD"],
     [28, 'brinjal', 'Eggplant', 140.00, 0.00, "AD"],
     [29, 'pulses', 'Pulses(100 gm)', 81.00, 0.00, "AD"],
-    [30, 'pavbhaji', 'Pav-bhaji(1 serving)', 400.00, 0.00, "AD"]
+    [30, 'cereals', 'Cereals', 400.00, 0.00, "AD"],
+    [31,'pohe', 'Pohe(per serving)', 250.00, 0.00, "AD"],
+    [32,'brocly', 'Brocly', 250.00, 0.00, "AD"]
   ];
-  List<int> normal = [1, 2, 3, 4];
-  List<int> overW = [5, 6, 7, 8];
+  List<int> normal = [0,1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+  List<int> overW = [4,9, 16, 14, 20];
   List<int> underW = [9, 10, 11, 12];
   List<Widget> test(List<int> tmp) {
     List<Widget> foodItem = [];
@@ -90,7 +92,9 @@ class _UpDietState extends State<UpDiet> {
           Items[element][2],
           Items[element][3],
           Items[element][4],
-          Items[element][5]));
+          Items[element][5],
+
+      ));
     });
     // Items.forEach((element) {
     //
