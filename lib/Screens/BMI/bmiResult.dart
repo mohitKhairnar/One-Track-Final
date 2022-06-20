@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_project_ui/Screens/first_screen.dart';
 import 'inputClass.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'bmiCalci.dart';
@@ -102,9 +103,12 @@ class _ResultScreenState extends State<ResultScreen> {
           MyButton(
             size: MediaQuery.of(context).size,
             onSubmit: () {
-              Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp()),
+                      (route) => (route.isFirst));
             },
-            text: 'RE-CALCULATE',
+            text: 'Check your Diet now ',
           ),
         ],
       ),

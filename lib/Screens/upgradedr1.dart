@@ -81,8 +81,8 @@ class _UpDietState extends State<UpDiet> {
     [32,'brocly', 'Brocly', 250.00, 0.00, "AD"]
   ];
   List<int> normal = [0,1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
-  List<int> overW = [4,9, 16, 14, 20];
-  List<int> underW = [9, 10, 11, 12];
+  List<int> overW = [2,8,9, 10, 11, 12,15,19,20,23,24,27,28,29];
+  List<int> underW = [0,4,9, 16, 14, 20,22,24,26,28,29,30];
   List<Widget> test(List<int> tmp) {
     List<Widget> foodItem = [];
     tmp.forEach((element) {

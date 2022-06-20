@@ -42,16 +42,16 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.search),
-                          color: Colors.white,
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.menu),
-                          color: Colors.white,
-                          onPressed: PopUp,
-                        )
+                        // IconButton(
+                        //   icon: Icon(Icons.search),
+                        //   color: Colors.white,
+                        //   onPressed: () {},
+                        // ),
+                        // IconButton(
+                        //   icon: Icon(Icons.menu),
+                        //   color: Colors.white,
+                        //   onPressed: PopUp,
+                        // )
                       ],
                     ))
               ],

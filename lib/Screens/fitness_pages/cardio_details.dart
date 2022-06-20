@@ -44,11 +44,11 @@ class _CardioDetailsPageState extends State<CardioDetailsPage> {
                   color: Colors.white)),
           centerTitle: true,
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.more_horiz),
-              onPressed: () {},
-              color: Colors.white,
-            )
+            // IconButton(
+            //   icon: Icon(Icons.more_horiz),
+            //   onPressed: () {},
+            //   color: Colors.white,
+            // )
           ],
         ),
         body: ListView(children: [
